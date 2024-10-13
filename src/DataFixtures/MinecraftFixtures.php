@@ -1,5 +1,5 @@
 <?php
-namespace App\DataFixtures;
+namespace App\MinecraftFixtures;
 
 use App\Entity\User;
 use App\Entity\Address;

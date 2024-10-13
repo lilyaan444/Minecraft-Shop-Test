@@ -63,6 +63,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return (string) $this->email;
     }
 
+    public function setEmail(string $email): self
+    {
+        $this->email = $email;
+        return $this;
+    }
+
     public function eraseCredentials () : void
      {
         // If you store any temporary, sensitive data on the user, clear it here
@@ -73,5 +79,27 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         return $this->password;
     }
+
+// Suggested code may be subject to a license. Learn more: ~LicenseLog:3632193870.
+    public function setPassword(string $password): self
+    {
+        $this->password = $password;
+        return $this;
+    }
+    
+// Suggested code may be subject to a license. Learn more: ~LicenseLog:1114349629.
+    public function setFirstName(string $firstName): self
+    {
+        $this->firstName = $firstName;
+        return $this;
+    }
+
+// Suggested code may be subject to a license. Learn more: ~LicenseLog:3212495294.
+    public function setLastName(string $lastName): self
+    {
+        $this->lastName = $lastName;
+        return $this;
+    }
+
 
 }
