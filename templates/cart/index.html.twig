@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Your Minecraft Cart{% endblock %}
+
+{% block body %}
+    <h1>Your Minecraft Cart</h1>
+
+    {% if items|length > 0 %}
+        <table class="table">
+            {# ... contenu existant ... #}
+        </table>
+
+        <form action="{{ path('app_cart_clear') }}" method="post" style="display: inline;">
+            <button type="submit" class="btn btn-danger">Clear Cart</button>
+        </form>
+
+        <a href="{{ path('app_order_create') }}" class="btn btn-success">Proceed to Checkout</a>
+    {% else %}
+        <p>Your cart is empty. <a href="{{ path('app_product_index') }}">Continue shopping</a></p>
+    {% endif %}
+{% endblock %}

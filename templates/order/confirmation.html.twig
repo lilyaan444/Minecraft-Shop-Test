@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Order Confirmation{% endblock %}
+
+{% block body %}
+    <h1>Order Confirmation</h1>
+
+    <p>Thank you for your order! Your order reference is: {{ order.reference }}</p>
+
+    <h2>Order Details</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in order.orderItems %}
+                <tr>
+                    <td>
+                        <img src="{{ asset('images/minecraft/' ~ item.product.minecraftImage) }}" alt="{{ item.product.name }}" width="50">
+                        {{ item.product.name }}
+                    </td>
+                    <td>{{ item.quantity }}</td>
+                    <td>{{ item.productPrice }} diamonds</td>
+                    <td>{{ item.productPrice * item.quantity }} diamonds</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="3"><strong>Total</strong></td>
+                <td><strong>{{ order.total }} diamonds</strong></td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <a href="{{ path('app_product_index') }}" class="btn btn-primary">Continue Shopping</a>
+{% endblock %}
