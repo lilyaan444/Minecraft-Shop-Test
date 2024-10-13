@@ -14,7 +14,8 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/product')]
 class ProductController extends AbstractController
 {
-    // ... autres méthodes ...
+
+
 
     #[Route('/{id}/add', name: 'app_product_add_to_cart', methods: ['POST'])]
     public function addToCart(Product $product, CartService $cartService): Response
@@ -24,5 +25,14 @@ class ProductController extends AbstractController
         $this->addFlash('success', 'Product added to cart!');
 
         return $this->redirectToRoute('app_product_index');
+    }
+
+    #[Route('/product', name: 'app_product_index')]
+    public function index(ProductRepository $productRepository): Response
+    {
+        $products = $productRepository->findAll(); 
+        return $this->render('product/index.html.twig', [
+            'products' => $products,
+        ]);
     }
 }

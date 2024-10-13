@@ -17,7 +17,26 @@ class CartService
         $this->productRepository = $productRepository;
     }
 
-    // ... autres méthodes ...
+    public function getTotal(): array
+    {
+        $cart = $this->session->get('cart', []);
+        $total = 0;
+        $totalItems = 0;
+
+        foreach ($cart as $id => $quantity) {
+            $product = $this->productRepository->find($id);
+            if ($product) {
+                $total += $product->getPrice() * $quantity;
+                $totalItems += $quantity;
+            }
+            }
+
+        return [
+            'total' => $total,
+            'totalItems' => $totalItems
+        ];
+
+    }
 
     public function getFullCart(): array
     {

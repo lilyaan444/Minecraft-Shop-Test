@@ -44,7 +44,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->addresses = new ArrayCollection();
     }
 
-    // ... autres getters et setters ...
 
     public function getRoles(): array
     {
@@ -59,13 +58,20 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function eraseCredentials()
-    {
-        // If you store any temporary, sensitive data on the user, clear it here
-    }
-
     public function getUserIdentifier(): string
     {
         return (string) $this->email;
     }
+
+    public function eraseCredentials () : void
+     {
+        // If you store any temporary, sensitive data on the user, clear it here
+        // $this->plainPassword = null; 
+    }
+
+    public function getPassword(): string
+    {
+        return $this->password;
+    }
+
 }

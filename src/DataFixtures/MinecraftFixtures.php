@@ -47,4 +47,5 @@ class MinecraftFixtures extends Fixture
 
         $manager->flush();
     }
+    
 }
