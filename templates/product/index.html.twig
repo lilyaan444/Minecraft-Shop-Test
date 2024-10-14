@@ -5,16 +5,29 @@
 {% block body %}
     <h1>Minecraft Shop</h1>
 
+    <div class="category-list">
+        {% for category in categories %}
+            <div class="category-item">
+                <img src="{{ asset('images/category-icons/' ~ category.icon) }}" alt="{{ category.name }}" class="category-icon">
+                <span>{{ category.name }}</span>
+            </div>
+        {% endfor %}
+    </div>
+
     <div class="product-grid">
         {% for product in products %}
-            <div class="product-card">
+            <div class="product-card minecraft-box">
                 <img src="{{ asset('images/minecraft/' ~ product.minecraftImage) }}" alt="{{ product.name }}">
                 <h2>{{ product.name }}</h2>
-                <p>Price: {{ product.price }} diamonds</p>
+                <p class="minecraft-tooltip">
+                    Price: {{ product.price }} diamonds
+                    <span class="tooltiptext">In-game currency</span>
+                </p>
                 <p>Stock: {{ product.stock }}</p>
-                <a href="{{ path('app_product_show', {'id': product.id}) }}">View Details</a>
+                <img src="{{ asset('images/category-icons/' ~ product.category.icon) }}" alt="{{ product.category.name }}" class="product-category-icon">
+                <a href="{{ path('app_product_show', {'id': product.id}) }}" class="btn-minecraft">View Details</a>
                 <form action="{{ path('app_cart_add', {'id': product.id}) }}" method="post">
-                    <button type="submit" class="btn btn-primary">Add to Cart</button>
+                    <button type="submit" class="btn-minecraft">Add to Cart</button>
                 </form>
             </div>
         {% endfor %}

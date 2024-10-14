@@ -22,7 +22,32 @@ class Category
     #[ORM\Column(length: 255)]
     private ?string $minecraftType = null;
 
-    // ... autres méthodes ...
+    #[ORM\Column(length: 255)]
+    private ?string $icon = null;
+
+    #[ORM\OneToMany(mappedBy: 'category', targetEntity: Product::class)]
+    private Collection $products;
+
+    public function __construct()
+    {
+        $this->products = new ArrayCollection();
+    }
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
+        return $this;
+    }
 
     public function getMinecraftType(): ?string
     {
@@ -35,14 +60,44 @@ class Category
         return $this;
     }
 
-    public function getName(): ?string
+    public function getIcon(): ?string
     {
-        return $this->name;
+        return $this->icon;
     }
 
-    public function setName(string $name): self
+    public function setIcon(string $icon): self
     {
-        $this->name = $name;
+        $this->icon = $icon;
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Product>
+     */
+    public function getProducts(): Collection
+    {
+        return $this->products;
+    }
+
+    public function addProduct(Product $product): self
+    {
+        if (!$this->products->contains($product)) {
+            $this->products->add($product);
+            $product->setCategory($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProduct(Product $product): self
+    {
+        if ($this->products->removeElement($product)) {
+            // set the owning side to null (unless already changed)
+            if ($product->getCategory() === $this) {
+                $product->setCategory(null);
+            }
+        }
+
         return $this;
     }
 

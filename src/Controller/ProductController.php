@@ -27,12 +27,12 @@ class ProductController extends AbstractController
         return $this->redirectToRoute('app_product_index');
     }
 
-    #[Route('/product', name: 'app_product_index')]
-    public function index(ProductRepository $productRepository): Response
+    #[Route('/', name: 'app_product_index', methods: ['GET'])]
+    public function index(ProductRepository $productRepository, CategoryRepository $categoryRepository): Response
     {
-        $products = $productRepository->findAll(); 
         return $this->render('product/index.html.twig', [
-            'products' => $products,
+            'products' => $productRepository->findAll(),
+            'categories' => $categoryRepository->findAll(),
         ]);
     }
 }

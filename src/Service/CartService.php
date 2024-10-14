@@ -17,25 +17,38 @@ class CartService
         $this->productRepository = $productRepository;
     }
 
-    public function getTotal(): array
+    public function add(int $id): void
     {
         $cart = $this->session->get('cart', []);
-        $total = 0;
-        $totalItems = 0;
+        if (!empty($cart[$id])) {
+            $cart[$id]++;
+        } else {
+            $cart[$id] = 1;
+        }
+        $this->session->set('cart', $cart);
+    }
 
-        foreach ($cart as $id => $quantity) {
-            $product = $this->productRepository->find($id);
-            if ($product) {
-                $total += $product->getPrice() * $quantity;
-                $totalItems += $quantity;
-            }
-            }
+    public function remove(int $id): void
+    {
+        $cart = $this->session->get('cart', []);
+        unset($cart[$id]);
+        $this->session->set('cart', $cart);
+    }
 
-        return [
-            'total' => $total,
-            'totalItems' => $totalItems
-        ];
+    public function update(int $id, int $quantity): void
+    {
+        $cart = $this->session->get('cart', []);
+        if ($quantity > 0) {
+            $cart[$id] = $quantity;
+        } else {
+            unset($cart[$id]);
+        }
+        $this->session->set('cart', $cart);
+    }
 
+    public function clear(): void
+    {
+        $this->session->remove('cart');
     }
 
     public function getFullCart(): array
@@ -56,5 +69,18 @@ class CartService
         return $cartData;
     }
 
-    // ... autres méthodes ...
+    public function getTotal(): float
+    {
+        $total = 0;
+        foreach ($this->getFullCart() as $item) {
+            $total += $item['product']->getPrice() * $item['quantity'];
+        }
+        return $total;
+    }
+
+    public function getItemCount(): int
+    {
+        $cart = $this->session->get('cart', []);
+        return array_sum($cart);
+    }
 }

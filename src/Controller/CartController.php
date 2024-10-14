@@ -2,8 +2,11 @@
 
 namespace App\Controller;
 
+use App\Form\ShippingType;
 use App\Service\CartService;
+use App\Service\OrderService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -41,5 +44,40 @@ class CartController extends AbstractController
         $cartService->clear();
 
         return $this->redirectToRoute('app_cart_index');
+    }
+
+    #[Route('/checkout', name: 'app_cart_checkout', methods: ['GET', 'POST'])]
+    public function checkout(Request $request, CartService $cartService, OrderService $orderService): Response
+    {
+        $form = $this->createForm(ShippingType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $shippingInfo = $form->getData();
+            $order = $orderService->createOrder($this->getUser(), $cartService->getFullCart(), $shippingInfo);
+            $cartService->clear();
+
+            return $this->redirectToRoute('app_cart_confirmation', ['id' => $order->getId()]);
+        }
+
+        return $this->render('cart/checkout.html.twig', [
+            'cart' => $cartService->getFullCart(),
+            'total' => $cartService->getTotal(),
+            'form' => $form->createView(),
+        ]);
+    }
+
+    #[Route('/confirmation/{id}', name: 'app_cart_confirmation', methods: ['GET'])]
+    public function confirmation(int $id, OrderService $orderService): Response
+    {
+        $order = $orderService->getOrder($id);
+
+        if (!$order || $order->getUser() !== $this->getUser()) {
+            throw $this->createNotFoundException('Order not found');
+        }
+
+        return $this->render('cart/confirmation.html.twig', [
+            'order' => $order,
+        ]);
     }
 }
