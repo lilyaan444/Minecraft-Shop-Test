@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+{% block title %}Product - {{ product.name }}{% endblock %}
+
+{% block body %}
+    <div class="product-details minecraft-box">
+        <h1>{{ product.name }}</h1>
+        
+        <div>
+            <img src="{{ asset('images/minecraft/' ~ product.MinecraftImage) }}" alt="{{ product.name }}">
+        </div>
+        
+        <div class="product-description">
+            <h2>Description:</h2>
+            <p>{{ product.description }}</p>
+        </div>
+
+        <div class="product-price">
+            <h2>Price:</h2>
+            <p>{{ product.price|number_format(2) }} €</p>
+        </div>
+
+        <div class="product-category">
+            <h2>Category:</h2>
+            <p>block</p>
+        </div>
+
+        <a href="{{ path('app_product_index') }}">Back to the list</a>
+
+        <form action="{{ path('app_cart_add', {'id': product.id}) }}" method="post">
+            <button type="submit" class="add-to-cart-btn">Add to Cart</button>
+        </form>
+    </div>
+{% endblock %}

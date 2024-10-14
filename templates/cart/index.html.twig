@@ -6,16 +6,37 @@
     <h1>Your Minecraft Cart</h1>
 
     {% if items|length > 0 %}
-        <table class="table">
-            {# ... contenu existant ... #}
+        <table class="cart-table minecraft-box">
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in items %}
+                    <tr>
+                        <td>{{ item.product.name }}</td>
+                        <td>{{ item.quantity }}</td>
+                        <td>{{ item.product.price|number_format(2) }} €</td>
+                        <td>{{ (item.quantity * item.product.price)|number_format(2) }} €</td>
+                    </tr>
+                {% endfor %}
+                <tr>
+                    <td colspan="3" class="cart-total">Total</td>
+                    <td class="cart-total">{{ total|number_format(2) }} €</td>
+                </tr>
+            </tbody>
         </table>
 
         <form action="{{ path('app_cart_clear') }}" method="post" style="display: inline;">
-            <button type="submit" class="btn btn-danger">Clear Cart</button>
+            <button type="submit" class="btn-minecraft btn-danger">Clear Cart</button>
         </form>
 
-        <a href="{{ path('app_order_create') }}" class="btn btn-success">Proceed to Checkout</a>
+        <a href="{{ path('app_order_create') }}" class="btn-minecraft btn-success">Proceed to Checkout</a>
     {% else %}
-        <p>Your cart is empty. <a href="{{ path('app_product_index') }}">Continue shopping</a></p>
+        <p class="empty-cart">Your cart is empty. <a href="{{ path('app_product_index') }}">Continue shopping</a></p>
     {% endif %}
 {% endblock %}
