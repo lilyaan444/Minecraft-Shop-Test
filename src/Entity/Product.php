@@ -20,24 +20,23 @@ class Product
     private ?string $name = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $description = null;
+    private ?string $minecraftImage = null;
 
-    //price
-    #[ORM\Column(type: Types::FLOAT)] // Or use Types::DECIMAL if appropriate
+    #[ORM\Column(type: 'float')]
     private ?float $price = null;
 
-    //stock
-    #[ORM\Column(type: Types::INTEGER)]
+    #[ORM\Column(type: 'text')]
+    private ?string $description = null;
+
+    #[ORM\Column(type: 'integer')]
     private ?int $stock = null;
 
     #[ORM\Column(length: 255)]
     private ?string $status = null;
 
-    #[ORM\ManyToOne(targetEntity: Category::class)]
+    #[ORM\ManyToOne(inversedBy: 'products')]
+    #[ORM\JoinColumn(nullable: false)]
     private ?Category $category = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $minecraftImage = null;
 
     public function getId(): ?int
     {

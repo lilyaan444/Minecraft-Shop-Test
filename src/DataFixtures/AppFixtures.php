@@ -31,6 +31,7 @@ class AppFixtures extends Fixture
         $user->setFirstName('John');
         $user->setLastName('Doe');
         $manager->persist($user);
+        $this->addReference('user_example', $user);
 
         // Create Addresses
         $address = new Address();
@@ -81,12 +82,13 @@ class AppFixtures extends Fixture
             $product->setMinecraftImage($image);
             $product->setCategory($this->getReference('category_'.$type));
             $manager->persist($product);
+            $this->addReference('product_'.$name, $product);
         }
 
         // Create Orders and OrderItems
         $order = new Order();
         $order->setReference('ORD123456');
-        $order->setUser($user);
+        $order->setUser($this->getReference('user_example'));
         $order->setStatus('pending');
         $manager->persist($order);
 
@@ -95,13 +97,10 @@ class AppFixtures extends Fixture
             $orderItem->setQuantity(1);
             $orderItem->setProductPrice($price);
             $orderItem->setOrderRef($order);
-            $product = $this->getReference('product_' . $type); // Assuming you have a reference for products
+            $product = $this->getReference('product_'.$name); // Fix reference key
             $orderItem->setProduct($product);
-            
             $manager->persist($orderItem);
         }
-
-        
 
         $manager->flush();
     }
