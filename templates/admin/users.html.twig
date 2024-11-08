@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Admin - Users{% endblock %}
+
+{% block body %}
+<div class="admin-users">
+    <h1 class="minecraft-title">Users Management</h1>
+
+    <table class="table-minecraft">
+        <thead>
+            <tr>
+                <th>Email</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Roles</th>
+                <th>Orders</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+                <tr>
+                    <td>{{ user.getUserIdentifier }}</td>
+                    <td>{{ user.getFirstName }}</td>
+                    <td>{{ user.GetLastName }}</td>
+                    <td>{{ user.roles|join(', ') }}</td>
+                    <td>{{ user.orders|length }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

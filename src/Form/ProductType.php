@@ -6,10 +6,9 @@ use App\Entity\Product;
 use App\Entity\Category;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\MoneyType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -18,26 +17,28 @@ class ProductType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name', TextType::class)
-            ->add('price', MoneyType::class, [
-                'currency' => 'USD',
+            ->add('name', TextType::class, [
+                'label' => 'Product Name',
+                'attr' => ['placeholder' => 'Enter product name']
             ])
-            ->add('description', TextareaType::class)
-            ->add('stock', TextType::class)
-            ->add('status', ChoiceType::class, [
-                'choices' => [
-                    'Available' => 'available',
-                    'Out of Stock' => 'out_of_stock',
-                    'Pre-order' => 'pre_order',
-                ],
+            ->add('price', NumberType::class, [
+                'label' => 'Price (in diamonds)',
+                'attr' => ['placeholder' => 'Enter price']
             ])
-            ->add('category', EntityType::class, [
-                'class' => Category::class,
-                'choice_label' => 'name',
+            ->add('stock', NumberType::class, [
+                'label' => 'Stock Quantity',
+                'attr' => ['placeholder' => 'Enter stock quantity']
             ])
+            ->add('description', TextareaType::class, [
+                'label' => 'Description',
+                'attr' => ['placeholder' => 'Enter product description']
+            ])
+
             ->add('minecraftImage', TextType::class, [
-                'label' => 'Minecraft Image Filename',
-            ]);
+                'label' => 'Minecraft Image',
+                'attr' => ['placeholder' => 'Enter image filename (e.g., diamond_sword.png)']
+            ])
+        ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void

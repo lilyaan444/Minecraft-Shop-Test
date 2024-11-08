@@ -3,51 +3,46 @@
 namespace App\Controller;
 
 use App\Entity\Product;
+use App\Entity\User;
+use App\Entity\Order;
 use App\Form\ProductType;
 use App\Repository\ProductRepository;
+use App\Repository\UserRepository;
+use App\Repository\OrderRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController; // This line was added
-use App\Repository\OrderRepository; // Add this line
-use App\Repository\CategoryRepository; 
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('/admin')]
+#[IsGranted('ROLE_ADMIN')]
 class AdminController extends AbstractController
 {
     #[Route('/', name: 'app_admin_dashboard')]
-    public function dashboard(ProductRepository $productRepository, OrderRepository $orderRepository, CategoryRepository $categoryRepository): Response
-    {
-        // Nombre total de produits par catégorie
-
-        // Les 5 dernières commandes
-        $recentOrders = $orderRepository->findRecentOrders(5);
-
-        // Ratio de disponibilité des produits
-        $productStatus = $productRepository->getProductStatusRatio();
-
-        // Montant total des ventes par mois (à implémenter)
-        $monthlySales = []; // Vous devrez implémenter cette logique
-
+    public function dashboard(
+        ProductRepository $productRepository,
+        UserRepository $userRepository,
+        OrderRepository $orderRepository
+    ): Response {
         return $this->render('admin/dashboard.html.twig', [
-            'recentOrders' => $recentOrders,
-            'productStatus' => $productStatus,
-            'monthlySales' => $monthlySales,
+            'total_products' => $productRepository->count([]),
+            'total_users' => $userRepository->count([]),
+            'total_orders' => $orderRepository->count([]),
+            'recent_orders' => $orderRepository->findRecentOrders(5)
         ]);
     }
 
-
-     #[Route('/products', name: 'app_admin_products')]
-    public function listProducts(ProductRepository $productRepository): Response
+    #[Route('/products', name: 'app_admin_products')]
+    public function products(ProductRepository $productRepository): Response
     {
-        $products = $productRepository->findAll();
         return $this->render('admin/products.html.twig', [
-            'products' => $products,
+            'products' => $productRepository->findAll()
         ]);
     }
 
-    #[Route('/products/new', name: 'app_admin_product_new', methods: ['GET', 'POST'])]
+    #[Route('/product/new', name: 'app_admin_product_new', methods: ['GET', 'POST'])]
     public function newProduct(Request $request, EntityManagerInterface $entityManager): Response
     {
         $product = new Product();
@@ -58,16 +53,17 @@ class AdminController extends AbstractController
             $entityManager->persist($product);
             $entityManager->flush();
 
-            $this->addFlash('success', 'Product created successfully.');
+            $this->addFlash('success', 'Product created successfully!');
             return $this->redirectToRoute('app_admin_products');
         }
 
         return $this->render('admin/product_form.html.twig', [
             'form' => $form->createView(),
+            'title' => 'New Product'
         ]);
     }
 
-    #[Route('/products/{id}/edit', name: 'app_admin_product_edit', methods: ['GET', 'POST'])]
+    #[Route('/product/{id}/edit', name: 'app_admin_product_edit', methods: ['GET', 'POST'])]
     public function editProduct(Request $request, Product $product, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(ProductType::class, $product);
@@ -76,25 +72,29 @@ class AdminController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            $this->addFlash('success', 'Product updated successfully.');
+            $this->addFlash('success', 'Product updated successfully!');
             return $this->redirectToRoute('app_admin_products');
         }
 
         return $this->render('admin/product_form.html.twig', [
             'form' => $form->createView(),
-            'product' => $product,
+            'title' => 'Edit Product'
         ]);
     }
 
-    #[Route('/products/{id}/delete', name: 'app_admin_product_delete', methods: ['POST'])]
-    public function deleteProduct(Request $request, Product $product, EntityManagerInterface $entityManager): Response
+    #[Route('/users', name: 'app_admin_users')]
+    public function users(UserRepository $userRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$product->getId(), $request->request->get('_token'))) {
-            $entityManager->remove($product);
-            $entityManager->flush();
-            $this->addFlash('success', 'Product deleted successfully.');
-        }
+        return $this->render('admin/users.html.twig', [
+            'users' => $userRepository->findAll()
+        ]);
+    }
 
-        return $this->redirectToRoute('app_admin_products');
+    #[Route('/orders', name: 'app_admin_orders')]
+    public function orders(OrderRepository $orderRepository): Response
+    {
+        return $this->render('admin/orders.html.twig', [
+            'orders' => $orderRepository->findBy([], ['createdAt' => 'DESC'])
+        ]);
     }
 }

@@ -318,3 +318,36 @@ nav ul li {
   background-color: #8b944e; /* Changer la couleur du bouton au survol */
   box-shadow: 2px 2px 0px #5d7c36, -2px -2px 0px #3d4b26; /* Accentuer l'effet de survol */
 }
+
+
+/* Cart Styles */
+.quantity-input {
+  width: 60px;
+  text-align: center;
+}
+
+.cart-count {
+  background-color: #ff0000;
+  color: white;
+  border-radius: 50%;
+  padding: 2px 6px;
+  font-size: 0.8em;
+  margin-left: 5px;
+}
+
+.checkout-form {
+  text-align: right;
+  margin-top: 20px;
+}
+
+.btn-checkout {
+  font-size: 1.2em;
+  padding: 15px 30px;
+  background-color: #2ecc71;
+  border-color: #27ae60;
+}
+
+.btn-checkout:hover {
+  background-color: #27ae60;
+  border-color: #219a52;
+}

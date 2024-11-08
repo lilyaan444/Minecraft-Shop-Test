@@ -11,3 +11,13 @@ import './styles/app.css';
 console.log('This log comes from assets/app.js - welcome to AssetMapper! 🎉');
 
 registerReactControllerComponents();
+
+import './styles/app.css';
+
+// Register Stimulus controllers
+import { startStimulusApp } from '@symfony/stimulus-bridge';
+export const app = startStimulusApp(require.context(
+    '@symfony/stimulus-bridge/lazy-controller-loader!./controllers',
+    true,
+    /\.[jt]sx?$/
+));

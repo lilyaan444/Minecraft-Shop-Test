@@ -2,12 +2,14 @@
 
 namespace App\Controller;
 
-use App\Form\ShippingType;
+use App\Entity\Order;
+use App\Entity\OrderItem;
 use App\Service\CartService;
-use App\Service\OrderService;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/cart')]
@@ -23,62 +25,79 @@ class CartController extends AbstractController
     }
 
     #[Route('/add/{id}', name: 'app_cart_add', methods: ['POST'])]
-    public function add(int $id, CartService $cartService): Response
+    public function add(int $id, Request $request, CartService $cartService): Response
     {
         $cartService->add($id);
 
+        if ($request->isXmlHttpRequest()) {
+            return new JsonResponse([
+                'total' => $cartService->getTotal(),
+                'count' => $cartService->getCount()
+            ]);
+        }
+
         return $this->redirectToRoute('app_cart_index');
+    }
+
+    #[Route('/update/{id}', name: 'app_cart_update', methods: ['POST'])]
+    public function update(int $id, Request $request, CartService $cartService): JsonResponse
+    {
+        $data = json_decode($request->getContent(), true);
+        $cartService->update($id, $data['quantity']);
+
+        return new JsonResponse([
+            'total' => $cartService->getTotal(),
+            'count' => $cartService->getCount()
+        ]);
     }
 
     #[Route('/remove/{id}', name: 'app_cart_remove', methods: ['POST'])]
-    public function remove(int $id, CartService $cartService): Response
+    public function remove(int $id, Request $request, CartService $cartService): Response
     {
         $cartService->remove($id);
 
+        if ($request->isXmlHttpRequest()) {
+            return new JsonResponse([
+                'total' => $cartService->getTotal(),
+                'count' => $cartService->getCount()
+            ]);
+        }
+
         return $this->redirectToRoute('app_cart_index');
     }
 
-    #[Route('/clear', name: 'app_cart_clear', methods: ['POST'])]
-    public function clear(CartService $cartService): Response
+    #[Route('/checkout', name: 'app_cart_checkout', methods: ['POST'])]
+    public function checkout(CartService $cartService, EntityManagerInterface $entityManager): Response
     {
+        $user = $this->getUser();
+        if (!$user) {
+            return $this->redirectToRoute('app_login');
+        }
+
+        $order = new Order();
+        $order->setUser($user);
+        $order->setReference(uniqid());
+        $order->setStatus('completed');
+
+        $cartItems = $cartService->getFullCart();
+        foreach ($cartItems as $item) {
+            $orderItem = new OrderItem();
+            $orderItem->setProduct($item['product']);
+            $orderItem->setQuantity($item['quantity']);
+            $orderItem->setProductPrice($item['product']->getPrice());
+            $order->addOrderItem($orderItem);
+
+            // Update stock
+            $product = $item['product'];
+            $product->setStock($product->getStock() - $item['quantity']);
+        }
+
+        $entityManager->persist($order);
+        $entityManager->flush();
+
         $cartService->clear();
 
-        return $this->redirectToRoute('app_cart_index');
+        $this->addFlash('success', 'Your order has been placed successfully!');
+        return $this->redirectToRoute('app_order_confirmation', ['reference' => $order->getReference()]);
     }
-
-    #[Route('/checkout', name: 'app_cart_checkout', methods: ['GET', 'POST'])]
-    public function checkout(Request $request, CartService $cartService, OrderService $orderService): Response
-    {
-        $form = $this->createForm(ShippingType::class);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $shippingInfo = $form->getData();
-            $order = $orderService->createOrder($this->getUser(), $cartService->getFullCart(), $shippingInfo);
-            $cartService->clear();
-
-            return $this->redirectToRoute('app_cart_confirmation', ['id' => $order->getId()]);
-        }
-
-        return $this->render('cart/checkout.html.twig', [
-            'cart' => $cartService->getFullCart(),
-            'total' => $cartService->getTotal(),
-            'form' => $form->createView(),
-        ]);
-    }
-
-    #[Route('/confirmation/{id}', name: 'app_cart_confirmation', methods: ['GET'])]
-    public function confirmation(int $id, OrderService $orderService): Response
-    {
-        $order = $orderService->getOrder($id);
-
-        if (!$order || $order->getUser() !== $this->getUser()) {
-            throw $this->createNotFoundException('Order not found');
-        }
-
-        return $this->render('cart/confirmation.html.twig', [
-            'order' => $order,
-        ]);
-    }
-    
 }

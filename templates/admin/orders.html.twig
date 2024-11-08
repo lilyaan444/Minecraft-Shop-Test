@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Admin - Orders{% endblock %}
+
+{% block body %}
+<div class="admin-orders">
+    <h1 class="minecraft-title">Orders Management</h1>
+
+    <table class="table-minecraft">
+        <thead>
+            <tr>
+                <th>Reference</th>
+                <th>User</th>
+                <th>Items</th>
+                <th>Total</th>
+                <th>Status</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for order in orders %}
+                <tr>
+                    <td>{{ order.reference }}</td>
+                    <td>{{ order.user.firstName }} {{ order.user.lastName }}</td>
+                    <td>
+                        <ul class="order-items-list">
+                            {% for item in order.orderItems %}
+                                <li>{{ item.quantity }}x {{ item.product.name }}</li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                    <td>{{ order.total }} diamonds</td>
+                    <td>{{ order.status }}</td>
+                    <td>{{ order.createdAt|date('Y-m-d H:i:s') }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

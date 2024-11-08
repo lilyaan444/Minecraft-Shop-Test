@@ -94,10 +94,31 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    public function getFirstName(): string
+    {
+        return $this->firstName;
+    }
+
+    public function getLastName(): string
+    {
+        return $this->lastName;
+    }
+
 // Suggested code may be subject to a license. Learn more: ~LicenseLog:3212495294.
     public function setLastName(string $lastName): self
     {
         $this->lastName = $lastName;
+        return $this;
+    }
+
+    public function getOrders(): Collection
+    {
+        return $this->orders;
+    }
+
+    public function setOrders(Collection $orders): self
+    {
+        $this->orders = $orders;
         return $this;
     }
 

@@ -3,42 +3,41 @@
 {% block title %}Admin - Products{% endblock %}
 
 {% block body %}
-    <h1>Products</h1>
+<div class="admin-products">
+    <h1 class="minecraft-title">Products Management</h1>
+    
+    <div class="actions">
+        <a href="{{ path('app_admin_product_new') }}" class="btn-minecraft">Add New Product</a>
+    </div>
 
-    <a href="{{ path('app_admin_product_new') }}" class="btn-minecraft">Create New Product</a>
-
-    <table class="minecraft-table">
+    <table class="table-minecraft">
         <thead>
             <tr>
-                <th>ID</th>
+                <th>Image</th>
                 <th>Name</th>
                 <th>Price</th>
                 <th>Stock</th>
-                <th>Status</th>
                 <th>Actions</th>
             </tr>
         </thead>
         <tbody>
-        {% for product in products %}
-            <tr>
-                <td>{{ product.id }}</td>
-                <td>{{ product.name }}</td>
-                <td>{{ product.price }}</td>
-                <td>{{ product.stock }}</td>
-                <td>{{ product.status }}</td>
-                <td>
-                    <a href="{{ path('app_admin_product_edit', {'id': product.id}) }}" class="btn-minecraft">Edit</a>
-                    <form method="post" action="{{ path('app_admin_product_delete', {'id': product.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');" style="display: inline-block;">
-                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ product.id) }}">
-                        <button class="btn-minecraft">Delete</button>
-                    </form>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="6">No products found</td>
-            </tr>
-        {% endfor %}
+            {% for product in products %}
+                <tr>
+                    <td>
+                        <img src="{{ asset('images/minecraft/' ~ product.minecraftImage) }}" 
+                             alt="{{ product.name }}" 
+                             class="product-thumbnail">
+                    </td>
+                    <td>{{ product.name }}</td>
+                    <td>{{ product.price }} diamonds</td>
+                    <td>{{ product.stock }}</td>
+                    <td>
+                        <a href="{{ path('app_admin_product_edit', {'id': product.id}) }}" 
+                           class="btn-minecraft">Edit</a>
+                    </td>
+                </tr>
+            {% endfor %}
         </tbody>
     </table>
+</div>
 {% endblock %}

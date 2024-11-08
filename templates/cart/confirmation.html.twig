@@ -1,33 +1,53 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Order Confirmation - Minecraft Shop{% endblock %}
+{% block title %}Order Confirmation{% endblock %}
 
 {% block body %}
-    <h1>Order Confirmation</h1>
-
-    <div class="order-confirmation minecraft-box">
-        <h2>Thank you for your order!</h2>
-        <p>Your order number is: <strong>{{ order.reference }}</strong></p>
-        <p>We've sent a confirmation email to <strong>{{ order.user.email }}</strong>.</p>
-
-        <h3>Order Summary</h3>
-        {% for item in order.orderItems %}
-            <div class="order-item">
-                <span class="product-name">{{ item.product.name }}</span>
-                <span class="product-quantity">x {{ item.quantity }}</span>
-                <span class="product-price">{{ item.productPrice * item.quantity }} diamonds</span>
-            </div>
-        {% endfor %}
-        <div class="order-total">
-            <strong>Total: {{ order.total }} diamonds</strong>
-        </div>
-
-        <h3>Shipping Information</h3>
-        <p>{{ order.shippingAddress.firstName }} {{ order.shippingAddress.lastName }}</p>
-        <p>{{ order.shippingAddress.address }}</p>
-        <p>{{ order.shippingAddress.city }}, {{ order.shippingAddress.postalCode }}</p>
-        <p>{{ order.shippingAddress.country }}</p>
+<div class="order-confirmation">
+    <h1 class="minecraft-title">Order Confirmed!</h1>
+    
+    <div class="confirmation-message">
+        <img src="{{ asset('images/minecraft/diamond.png') }}" alt="Success" class="confirmation-icon">
+        <p>Thank you for your purchase! Your order reference is: {{ order.reference }}</p>
     </div>
 
-    <a href="{{ path('app_product_index') }}" class="btn-minecraft">Continue Shopping</a>
+    <div class="order-details">
+        <h2>Order Summary</h2>
+        <table class="table-minecraft">
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in order.orderItems %}
+                    <tr>
+                        <td>
+                            <img src="{{ asset('images/minecraft/' ~ item.product.minecraftImage) }}" 
+                                 alt="{{ item.product.name }}"
+                                 class="product-thumbnail">
+                            {{ item.product.name }}
+                        </td>
+                        <td>{{ item.quantity }}</td>
+                        <td>{{ item.productPrice }} diamonds</td>
+                        <td>{{ item.productPrice * item.quantity }} diamonds</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="3"><strong>Total</strong></td>
+                    <td><strong>{{ order.total }} diamonds</strong></td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+
+    <div class="confirmation-actions">
+        <a href="{{ path('app_product_index') }}" class="btn-minecraft">Continue Shopping</a>
+    </div>
+</div>
 {% endblock %}

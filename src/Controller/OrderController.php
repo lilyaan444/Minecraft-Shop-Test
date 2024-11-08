@@ -50,8 +50,19 @@ class OrderController extends AbstractController
 
         $cartService->clear();
 
+        return $this->redirectToRoute('app_order_confirmation', ['reference' => $order->getReference()]);
+    }
+
+    #[Route('/confirmation/{reference}', name: 'app_order_confirmation', methods: ['GET'])]
+    public function confirmation(Order $order): Response
+    {
+        // Check if the order belongs to the current user
+        if ($order->getUser() !== $this->getUser()) {
+            throw $this->createAccessDeniedException();
+        }
+
         return $this->render('order/confirmation.html.twig', [
-            'order' => $order,
+            'order' => $order
         ]);
     }
 }

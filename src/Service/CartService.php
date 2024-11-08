@@ -4,7 +4,6 @@ namespace App\Service;
 
 use App\Repository\ProductRepository;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class CartService
 {
@@ -28,13 +27,6 @@ class CartService
         $this->session->set('cart', $cart);
     }
 
-    public function remove(int $id): void
-    {
-        $cart = $this->session->get('cart', []);
-        unset($cart[$id]);
-        $this->session->set('cart', $cart);
-    }
-
     public function update(int $id, int $quantity): void
     {
         $cart = $this->session->get('cart', []);
@@ -43,6 +35,13 @@ class CartService
         } else {
             unset($cart[$id]);
         }
+        $this->session->set('cart', $cart);
+    }
+
+    public function remove(int $id): void
+    {
+        $cart = $this->session->get('cart', []);
+        unset($cart[$id]);
         $this->session->set('cart', $cart);
     }
 
@@ -78,9 +77,12 @@ class CartService
         return $total;
     }
 
-    public function getItemCount(): int
+    public function getCount(): int
     {
-        $cart = $this->session->get('cart', []);
-        return array_sum($cart);
+        $count = 0;
+        foreach ($this->session->get('cart', []) as $quantity) {
+            $count += $quantity;
+        }
+        return $count;
     }
 }

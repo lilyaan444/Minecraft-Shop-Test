@@ -1,14 +1,31 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{% if product is defined %}Edit{% else %}New{% endif %} Product{% endblock %}
+{% block title %}Admin - {{ title }}{% endblock %}
 
 {% block body %}
-    <h1>{% if product is defined %}Edit{% else %}Create new{% endif %} Product</h1>
+<div class="admin-product-form">
+    <h1 class="minecraft-title">{{ title }}</h1>
 
     {{ form_start(form, {'attr': {'class': 'minecraft-form'}}) }}
-        {{ form_widget(form) }}
-        <button type="submit" class="btn-minecraft">Save</button>
-    {{ form_end(form) }}
+        <div class="form-group">
+            {{ form_row(form.name, {'attr': {'class': 'form-control-minecraft'}}) }}
+        </div>
+        <div class="form-group">
+            {{ form_row(form.price, {'attr': {'class': 'form-control-minecraft'}}) }}
+        </div>
+        <div class="form-group">
+            {{ form_row(form.stock, {'attr': {'class': 'form-control-minecraft'}}) }}
+        </div>
+        <div class="form-group">
+            {{ form_row(form.description, {'attr': {'class': 'form-control-minecraft'}}) }}
+        </div>
 
-    <a href="{{ path('app_admin_products') }}" class="btn-minecraft">Back to list</a>
+        <div class="form-group">
+            {{ form_row(form.minecraftImage, {'attr': {'class': 'form-control-minecraft'}}) }}
+        </div>
+
+        <button type="submit" class="btn-minecraft">Save</button>
+        <a href="{{ path('app_admin_products') }}" class="btn-minecraft">Back to List</a>
+    {{ form_end(form) }}
+</div>
 {% endblock %}

@@ -7,6 +7,9 @@
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>🧱</text></svg>">
         {% block stylesheets %}
             <link rel="stylesheet" href="{{ asset('css/minecraft.css') }}">
+            {% if app.request.attributes.get('_route') starts with 'app_admin' %}
+                <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
+            {% endif %}
         {% endblock %}
 
         {% block javascripts %}
@@ -20,7 +23,7 @@
                         <span class="home-icon">🏠</span> {{ 'home'|trans }}
                     </a></li>
                     <li><a href="{{ path('app_cart_index') }}" class="btn-minecraft">
-                        <span class="cart-icon">🛒</span> {{ 'cart'|trans }}
+                        🛒 Cart <span class="cart-count" data-cart-target="count">{{ app.session.get('cart')|length }}</span>
                     </a></li>
                     {% if is_granted('ROLE_USER') %}
                         <li><a href="{{ path('app_logout') }}" class="btn-minecraft">
@@ -32,7 +35,9 @@
                     </a></li>
                     {% endif %}
                      {% if is_granted('ROLE_ADMIN') %}
-                        <li><a href="{{ path('app_admin_dashboard') }}" class="btn-minecraft">Admin Dashboard</a></li>
+                        <li><a href="{{ path('app_admin_dashboard') }}" class="btn-minecraft">
+                        <span class="admin-icon">👨‍💻</span> {{ 'admin'|trans }}
+                    </a></li>
                     {% endif %}
 </div>
                 </ul>
