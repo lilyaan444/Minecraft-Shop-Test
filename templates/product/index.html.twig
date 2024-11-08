@@ -1,27 +1,24 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Minecraft Shop{% endblock %}
+{% block title %}{{ 'welcome'|trans }}{% endblock %}
 
 {% block body %}
-    <h1>Minecraft Shop</h1>
+    <h1>{{ 'welcome'|trans }}</h1>
 
-    <div class="category-list">
-        {# Liste des catégories si nécessaire #}
-    </div>
-
-    <div class="minecraft-inventory">
-        {% for slot in 0..26 %}
-            <div class="inventory-slot">
-                {% if slot < products|length %}
-                    <a href="{{ path('app_product_show', {'id': products[slot].id}) }}">
-                        <img src="{{ asset('images/minecraft/' ~ products[slot].minecraftImage) }}" alt="{{ products[slot].name }}">
-                    </a>
-                    <form action="{{ path('app_cart_add', {'id': products[slot].id}) }}" method="post">
-                        <button type="submit" class="add-to-cart-btn">Add to Cart</button>
-                    </form>
-                {% else %}
-                    <!-- Slot vide -->
-                {% endif %}
+    <div class="product-grid">
+        {% for product in products %}
+            <div class="product-card">
+                <img src="{{ asset('images/minecraft/' ~ product.minecraftImage) }}" alt="{{ product.name }}">
+                <h2>{{ product.name }}</h2>
+                <p class="minecraft-tooltip">
+                    {{ product.price }} diamonds
+                    <span class="tooltiptext">{{ 'in_game_currency'|trans }}</span>
+                </p>
+                <p>{{ 'stock'|trans }}: {{ product.stock }}</p>
+                <a href="{{ path('app_product_show', {'id': product.id}) }}" class="btn-minecraft">{{ 'view'|trans }}</a>
+                <form action="{{ path('app_cart_add', {'id': product.id}) }}" method="post">
+                    <button type="submit" class="btn-minecraft">{{ 'add_to_cart'|trans }}</button>
+                </form>
             </div>
         {% endfor %}
     </div>

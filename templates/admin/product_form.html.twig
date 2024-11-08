@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% if product is defined %}Edit{% else %}New{% endif %} Product{% endblock %}
+
+{% block body %}
+    <h1>{% if product is defined %}Edit{% else %}Create new{% endif %} Product</h1>
+
+    {{ form_start(form, {'attr': {'class': 'minecraft-form'}}) }}
+        {{ form_widget(form) }}
+        <button type="submit" class="btn-minecraft">Save</button>
+    {{ form_end(form) }}
+
+    <a href="{{ path('app_admin_products') }}" class="btn-minecraft">Back to list</a>
+{% endblock %}

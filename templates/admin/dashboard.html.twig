@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block body %}
+    <h1>Admin Dashboard</h1>
+
+    <div class="dashboard-section">
+        <h2>Products by Category</h2>
+        <ul>
+           
+        </ul>
+    </div>
+
+    <div class="dashboard-section">
+        <h2>Recent Orders</h2>
+        <ul>
+            {% for order in recentOrders %}
+                <li>Order #{{ order.reference }} - {{ order.createdAt|date('Y-m-d H:i') }} - Status: {{ order.status }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="dashboard-section">
+        <h2>Product Availability</h2>
+        <ul>
+            {% for status, ratio in productStatus %}
+                <li>{{ status }}: {{ ratio }}%</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="dashboard-section">
+        <h2>Monthly Sales</h2>
+        <!-- Implement monthly sales chart here -->
+    </div>
+{% endblock %}

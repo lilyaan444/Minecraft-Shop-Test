@@ -1,0 +1,48 @@
+# General
+welcome: Bienvenue sur la boutique Minecraft !
+home: Accueil
+cart: Panier
+login: Connexion
+logout: Déconnexion
+copyright: Tous droits réservés.
+change_language: "Changer le langage"
+
+
+# Products
+view: Voir
+add_to_cart: Ajouter au panier
+price: Prix
+stock: Stock
+category: Catégorie
+back_to_products: Retour aux produits
+in_game_currency: Monnaie du jeu
+
+# Categories
+category_tools: Outils
+category_blocks: Blocs
+category_food: Nourriture
+category_weapons: Armes
+category_armor: Armure
+
+# Cart
+your_cart: Votre panier
+clear_cart: Vider le panier
+proceed_to_checkout: Procéder au paiement
+cart_empty: Votre panier est vide.
+continue_shopping: Continuer vos achats
+
+# Checkout
+checkout: Paiement
+order_summary: Résumé de la commande
+shipping_information: Informations de livraison
+place_order: Passer la commande
+
+# Order Confirmation
+order_confirmation: Confirmation de commande
+thank_you_order: Merci pour votre commande !
+order_number: Votre numéro de commande est
+confirmation_email: Nous avons envoyé un email de confirmation à
+total: Total
+
+# Error messages
+product_not_found: Le produit n'existe pas

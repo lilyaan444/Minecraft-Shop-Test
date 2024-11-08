@@ -1,404 +1,320 @@
+/* Minecraft-inspired font */
 @font-face {
     font-family: 'Minecraft';
-    src: url('/fonts/Minecraft.ttf') format('truetype');
-}
-
-
-/* Général */
-body {
+    src: url('../fonts/Minecraft.ttf') format('truetype');
+  }
+  
+  body {
     font-family: 'Minecraft', sans-serif;
-    background-color: #181818;
-    background-image: url('/images/minecraft_inventory_background.png');
-    background-size: cover;
-    color: white;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-}
-
-/* Header et navigation */
-header.minecraft-box {
-    background-color: #3e3e3e;
-    border-bottom: 2px solid #8b8b8b;
+    background-color: #494949;
+    color: #ffffff;
+    text-shadow: 2px 2px #3f3f3f;
+  }
+  
+  .container {
+    background-color: rgba(0, 0, 0, 0.6);
+    border: 4px solid #8b8b8b;
+    border-radius: 0;
+    padding: 20px;
+    margin-top: 20px;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: normal;
+  }
+  
+  /* Minecraft-style button */
+  .btn-minecraft {
+    background-color: #7e7e7e;
+    border: 2px solid #565656;
+    color: #ffffff;
+    font-family: 'Minecraft', sans-serif;
+    text-transform: uppercase;
+    padding: 10px 15px;
+    text-shadow: 2px 2px #3f3f3f;
+    transition: all 0.3s;
+  }
+  
+  .btn-minecraft:hover {
+    background-color: #565656;
+    border-color: #3f3f3f;
+    transform: translateY(-2px);
+  }
+  
+  /* Product card style */
+  .product-card {
+    background-color: #8b8b8b;
+    border: 4px solid #565656;
     padding: 10px;
-    text-align: center;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    margin-bottom: 20px;
+    transition: all 0.3s;
+  }
+  
+  .product-card:hover {
+    transform: scale(1.05);
+  }
+  
+  .product-card img {
+    image-rendering: pixelated;
+    width: 100%;
+    height: auto;
+  }
+  
+  /* Inventory-style table */
+  .table-minecraft {
+    background-color: #c6c6c6;
+    border: 4px solid #8b8b8b;
+  }
+  
+  .table-minecraft th,
+  .table-minecraft td {
+    border: 2px solid #8b8b8b;
+    padding: 10px;
+  }
+  
+  .table-minecraft thead {
+    background-color: #8b8b8b;
+    color: #ffffff;
+  }
+  
+  /* Minecraft-style form inputs */
+  .form-control-minecraft {
+    background-color: #8b8b8b;
+    border: 2px solid #565656;
+    color: #ffffff;
+    font-family: 'Minecraft', sans-serif;
+  }
+  
+  .form-control-minecraft:focus {
+    background-color: #a8a8a8;
+    border-color: #ffffff;
+    box-shadow: none;
+  }
+
+  /* Existing styles */
+
+/* Improved Navigation */
+header.minecraft-box {
+  padding: 10px;
+  margin-bottom: 20px;
 }
 
 nav ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    gap: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
 }
 
 nav ul li {
-    display: inline-block;
+  margin: 0 10px;
 }
 
-nav a.btn-minecraft {
-    background-color: #5e5e5e;
-    border: 2px solid #8b8b8b;
-    padding: 10px 20px;
-    color: white;
-    text-decoration: none;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-    font-family: 'Minecraft', sans-serif;
-}
-
-nav a.btn-minecraft:hover {
-    background-color: #7e7e7e;
-    transform: scale(1.1);
-}
-
-.cart-icon {
-    margin-right: 5px;
-}
-
-/* Contenu principal */
-main.minecraft-box {
-    flex: 1;
-    background-color: rgba(62, 62, 62, 0.9);
-    border: 2px solid #8b8b8b;
-    padding: 20px;
-    margin: 20px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-    border-radius: 10px;
-}
-
-/* Footer */
-footer.minecraft-box {
-    background-color: #3e3e3e;
-    border-top: 2px solid #8b8b8b;
-    padding: 10px;
-    text-align: center;
-    box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.5);
-    font-family: 'Minecraft', sans-serif;
-}
-
-footer p {
-    margin: 0;
-    color: #b8b8b8;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    nav ul {
-        flex-direction: column;
-    }
-
-    main.minecraft-box {
-        margin: 10px;
-    }
-}
-
-
-/* Apparence générale du grid produit comme un inventaire */
-.product-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-    margin-top: 20px;
-}
-
-/* Style des cartes produits avec une touche Minecraft */
-.product-card {
-    background-color: #c2b280; /* Couleur sable comme dans Minecraft */
-    border: 2px solid #3e3e3e;
-    padding: 15px;
-    border-radius: 8px;
-    text-align: center;
-    position: relative;
-}
-
-/* Apparence des slots d'inventaire */
-
-.minecraft-inventory {
-    display: grid;
-    grid-template-columns: repeat(9, 1fr); /* 9 colonnes pour le design d'inventaire Minecraft */
-    gap: 10px; /* Augmente l'espacement entre les cases */
-    margin-top: 40px;
-}
-
-.inventory-slot {
-    width: 96px;
-    height: 96px;
-    background-color: #3e3e3e;
-    border: 2px solid #8b8b8b;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transition douce pour l'animation */
-}
-
-.inventory-slot:hover {
-    transform: scale(1.1); /* Agrandissement léger lors du survol */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); /* Ajout d'une ombre pour plus d'emphase */
-}
-
-.inventory-slot img {
-    max-width: 64px;
-    max-height: 64px;
-    transition: transform 0.3s ease;
-}
-
-.inventory-slot:hover img {
-    transform: scale(1.2); /* Augmente aussi légèrement l'image */
-}
-
-.add-to-cart-btn {
-    background-color: #3e3e3e;
-    border: 2px solid #8b8b8b;
-    padding: 5px;
-    color: white;
-    font-family: 'Minecraft', sans-serif;
-    cursor: pointer;
-    margin-top: 5px;
-    transition: background-color 0.3s ease;
-}
-
-.add-to-cart-btn:hover {
-    background-color: #5e5e5e;
-}
-
-/* Page de détails du produit */
-.product-details {
-    background-color: rgba(62, 62, 62, 0.9);
-    border: 2px solid #8b8b8b;
-    padding: 20px;
-    margin: 40px auto;
-    width: 80%;
-    max-width: 600px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-    border-radius: 10px;
-    font-family: 'Minecraft', sans-serif;
-}
-
-.product-details h1, .product-details h2 {
-    color: white;
-    font-family: 'Minecraft', sans-serif;
-    text-align: center;
-}
-
-.product-details img {
-    display: block;
-    margin: 0 auto;
-    border: 2px solid #8b8b8b;
-    max-width: 200px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-}
-
-.product-description, .product-price, .product-category {
-    color: white;
-    margin-top: 20px;
-    text-align: center;
-    font-family: 'Minecraft', sans-serif;
-}
-
-.product-details a {
-    display: inline-block;
-    background-color: #3e3e3e;
-    border: 2px solid #8b8b8b;
-    padding: 10px 20px;
-    color: white;
-    text-decoration: none;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-    font-family: 'Minecraft', sans-serif;
-    margin: 20px auto;
-    text-align: center;
-}
-
-.product-details a:hover {
-    background-color: #5e5e5e;
-    transform: scale(1.1);
-}
-
-.product-details .add-to-cart-btn {
-    display: block;
-    background-color: #3e3e3e;
-    border: 2px solid #8b8b8b;
-    padding: 10px;
-    color: white;
-    text-align: center;
-    margin: 20px auto;
-    cursor: pointer;
-    font-family: 'Minecraft', sans-serif;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-}
-
-.product-details .add-to-cart-btn:hover {
-    background-color: #5e5e5e;
-    transform: scale(1.1);
-}
-
-/* Panier - Table des produits */
-.cart-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 20px 0;
-}
-
-.cart-table th, .cart-table td {
-    padding: 15px;
-    border: 2px solid #8b8b8b;
-    text-align: center;
-    background-color: rgba(62, 62, 62, 0.9);
-    font-family: 'Minecraft', sans-serif;
-}
-
-.cart-table th {
-    background-color: #5e5e5e;
-    color: white;
-}
-
-.cart-table td {
-    color: white;
-}
-
-.cart-table td:first-child {
-    text-align: left;
-}
-
-.cart-table tr:hover {
-    background-color: rgba(94, 94, 94, 0.9);
-    transform: scale(1.02);
-    transition: transform 0.3s ease-in-out;
-}
-
-/* Total du panier */
-.cart-total {
-    text-align: right;
-    color: white;
-    font-size: 1.5em;
-    margin-top: 20px;
-}
-
-/* Boutons - Checkout et Vider le panier */
 .btn-minecraft {
-    display: inline-block;
-    background-color: #3e3e3e;
-    border: 2px solid #8b8b8b;
-    padding: 10px 20px;
-    color: white;
-    text-decoration: none;
-    text-align: center;
-    cursor: pointer;
-    font-family: 'Minecraft', sans-serif;
-    transition: background-color 0.3s ease, transform 0.3s ease;
+  display: inline-block;
+  padding: 6px 12px;
+  font-size: 14px;
+  text-decoration: none;
+  color: #fff;
+  background-color: #5c5c5c;
+  border: 2px solid #000;
+  box-shadow: inset -2px -4px #0006, inset 2px 2px #fff7;
 }
 
 .btn-minecraft:hover {
-    background-color: #5e5e5e;
-    transform: scale(1.1);
+  background-color: #7e7e7e;
 }
 
-.btn-danger {
-    background-color: #b30000;
+/* Improved Product Grid */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+  padding: 20px;
 }
 
-.btn-success {
-    background-color: #009933;
+.product-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+  background-color: #c6c6c6;
+  border: 2px solid #000;
+  box-shadow: inset -2px -4px #0006, inset 2px 2px #fff7;
 }
 
-/* Message de panier vide */
-.empty-cart {
-    color: white;
-    font-family: 'Minecraft', sans-serif;
-    text-align: center;
-    margin-top: 30px;
+.product-card img {
+  width: 100%;
+  max-width: 150px;
+  height: auto;
+  object-fit: contain;
+  margin-bottom: 10px;
 }
 
-.empty-cart a {
-    color: #3e3e3e;
-    text-decoration: none;
+.product-card h2 {
+  font-size: 16px;
+  margin: 5px 0;
+  text-align: center;
 }
 
-.empty-cart a:hover {
-    color: #5e5e5e;
-    text-decoration: underline;
+.product-card p {
+  font-size: 14px;
+  margin: 5px 0;
 }
 
-/* Page de connexion */
-.login-form {
-    max-width: 400px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: rgba(62, 62, 62, 0.9);
-    border: 2px solid #8b8b8b;
-    border-radius: 10px;
-    font-family: 'Minecraft', sans-serif;
-    color: white;
+.product-card .btn-minecraft {
+  margin-top: 10px;
 }
 
-.login-form h1 {
-    font-size: 1.8em;
-    margin-bottom: 20px;
-    color: #fff;
+/* Category List */
+.category-list {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+  gap: 10px;
 }
 
-.login-form label {
+.category-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+  padding: 5px;
+  border: 2px solid transparent;
+}
+
+.category-item:hover {
+  transform: scale(1.1);
+  border-color: #000;
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.category-icon {
+  width: 32px;
+  height: 32px;
+  margin-bottom: 5px;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .product-grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  }
+  
+  nav ul {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  nav ul li {
+    margin: 5px 0;
+  }
+  
+  .btn-minecraft {
     display: block;
-    margin-bottom: 5px;
-    color: #fff;
-}
-
-.login-form input {
-    width: 90%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 2px solid #8b8b8b;
-    border-radius: 5px;
-    background-color: #3e3e3e;
-    color: white;
-    font-family: 'Minecraft', sans-serif;
-    transition: border-color 0.3s ease;
-}
-
-.login-form input:focus {
-    border-color: #5e5e5e;
-}
-
-.login-form .btn-minecraft {
-    display: inline-block;
-    background-color: #3e3e3e;
-    border: 2px solid #8b8b8b;
-    padding: 10px 20px;
-    color: white;
     text-align: center;
-    text-decoration: none;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-    font-family: 'Minecraft', sans-serif;
+  }
 }
 
-.login-form .btn-minecraft:hover {
-    background-color: #5e5e5e;
-    transform: scale(1.1);
+/* Product Show Page */
+.product-details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background-color: rgba(198, 198, 198, 0.8);
+  border: 2px solid #000;
+  box-shadow: inset -2px -4px #0006, inset 2px 2px #fff7;
 }
 
-/* Alertes */
-.alert-danger {
-    background-color: rgba(179, 0, 0, 0.8);
-    color: white;
-    padding: 10px;
-    border-radius: 5px;
-    margin-bottom: 15px;
-    font-family: 'Minecraft', sans-serif;
-    border: 2px solid #8b8b8b;
+.product-details img {
+  max-width: 300px;
+  height: auto;
+  margin-bottom: 20px;
 }
 
-.logout-message {
-    margin-bottom: 15px;
-    color: white;
-    font-family: 'Minecraft', sans-serif;
+.product-info {
+  text-align: center;
 }
 
+.product-actions {
+  margin-top: 20px;
+}
 
+/* Responsive design */
+@media (max-width: 768px) {
+  .product-grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  }
+  
+  nav ul {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  nav ul li {
+    margin: 5px 0;
+  }
+  
+  .btn-minecraft {
+    display: block;
+    text-align: center;
+  }
+}
 
+/* Style du dropdown Minecraft */
+.minecraft-dropdown {
+  position: relative;
+  display: inline-block;
+}
 
+.minecraft-dropbtn {
+  background-color: #5d7c36; /* Vert herbe */
+  color: #f4e242; /* Jaune pixelisé */
+  padding: 10px 20px;
+  font-size: 18px;
+  border: 4px solid #3d4b26; /* Bordure marron foncé */
+  cursor: pointer;
+  text-transform: uppercase;
+  box-shadow: 2px 2px 0px #3d4b26, -2px -2px 0px #8b944e; /* Effet 3D pour rappeler le style bloc Minecraft */
+}
+
+.minecraft-dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #3d4b26; /* Marron foncé */
+  border: 3px solid #8b944e; /* Marron clair pour les bordures */
+  min-width: 200px;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+
+.minecraft-dropdown-content a {
+  color: #f4e242; /* Jaune pixelisé */
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  background-color: #5d7c36; /* Fond vert herbe */
+  font-size: 16px;
+  text-transform: uppercase;
+  border-bottom: 2px solid #3d4b26; /* Séparation pixelisée */
+}
+
+.minecraft-dropdown-content a:hover {
+  background-color: #8b944e; /* Couleur plus claire lors du survol */
+  color: #ffffff; /* Blanc lors du survol */
+  border-bottom: 2px solid #f4e242; /* Mettre en surbrillance avec du jaune pixelisé */
+}
+
+.minecraft-dropdown:hover .minecraft-dropdown-content {
+  display: block;
+}
+
+.minecraft-dropdown:hover .minecraft-dropbtn {
+  background-color: #8b944e; /* Changer la couleur du bouton au survol */
+  box-shadow: 2px 2px 0px #5d7c36, -2px -2px 0px #3d4b26; /* Accentuer l'effet de survol */
+}

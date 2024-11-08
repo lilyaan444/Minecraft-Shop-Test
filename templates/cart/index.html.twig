@@ -6,37 +6,49 @@
     <h1>Your Minecraft Cart</h1>
 
     {% if items|length > 0 %}
-        <table class="cart-table minecraft-box">
+        <table class="table table-minecraft">
             <thead>
                 <tr>
                     <th>Product</th>
                     <th>Quantity</th>
                     <th>Price</th>
                     <th>Total</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
                 {% for item in items %}
                     <tr>
-                        <td>{{ item.product.name }}</td>
+                        <td>
+                            <img src="{{ asset('images/minecraft/' ~ item.product.minecraftImage) }}" alt="{{ item.product.name }}" width="50">
+                            {{ item.product.name }}
+                        </td>
                         <td>{{ item.quantity }}</td>
-                        <td>{{ item.product.price|number_format(2) }} €</td>
-                        <td>{{ (item.quantity * item.product.price)|number_format(2) }} €</td>
+                        <td>{{ item.product.price }} diamonds</td>
+                        <td>{{ item.product.price * item.quantity }} diamonds</td>
+                        <td>
+                            <form action="{{ path('app_cart_remove', {'id': item.product.id}) }}" method="post" style="display: inline;">
+                                <button type="submit" class="btn-minecraft">Remove</button>
+                            </form>
+                        </td>
                     </tr>
                 {% endfor %}
-                <tr>
-                    <td colspan="3" class="cart-total">Total</td>
-                    <td class="cart-total">{{ total|number_format(2) }} €</td>
-                </tr>
             </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="3"><strong>Total</strong></td>
+                    <td><strong>{{ total }} diamonds</strong></td>
+                    <td></td>
+                </tr>
+            </tfoot>
         </table>
 
         <form action="{{ path('app_cart_clear') }}" method="post" style="display: inline;">
-            <button type="submit" class="btn-minecraft btn-danger">Clear Cart</button>
+            <button type="submit" class="btn-minecraft">Clear Cart</button>
         </form>
 
-        <a href="{{ path('app_order_create') }}" class="btn-minecraft btn-success">Proceed to Checkout</a>
+        <a href="{{ path('app_order_create') }}" class="btn-minecraft">Proceed to Checkout</a>
     {% else %}
-        <p class="empty-cart">Your cart is empty. <a href="{{ path('app_product_index') }}">Continue shopping</a></p>
+        <p>Your cart is empty. <a href="{{ path('app_product_index') }}" class="btn-minecraft">Continue shopping</a></p>
     {% endif %}
 {% endblock %}

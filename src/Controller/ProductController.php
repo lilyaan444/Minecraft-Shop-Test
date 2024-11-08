@@ -2,33 +2,21 @@
 
 namespace App\Controller;
 
-use App\Entity\Product;
-use App\Form\ProductType;
 use App\Repository\ProductRepository;
-use App\Service\CartService;
+use App\Repository\CategoryRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Repository\CategoryRepository;
-
-
-
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 #[Route('/product')]
 class ProductController extends AbstractController
 {
+    private $translator;
 
-
-
-    #[Route('/{id}/add', name: 'app_product_add_to_cart', methods: ['POST'])]
-    public function addToCart(Product $product, CartService $cartService): Response
+    public function __construct(TranslatorInterface $translator)
     {
-        $cartService->add($product->getId());
-
-        $this->addFlash('success', 'Product added to cart!');
-
-        return $this->redirectToRoute('app_product_index');
+        $this->translator = $translator;
     }
 
     #[Route('/', name: 'app_product_index', methods: ['GET'])]
@@ -40,12 +28,16 @@ class ProductController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_product_show', methods: ['GET'])]
-    public function show(Product $product): Response
+    public function show(int $id, ProductRepository $productRepository): Response
     {
+        $product = $productRepository->find($id);
+
+        if (!$product) {
+            throw $this->createNotFoundException($this->translator->trans('product_not_found'));
+        }
+
         return $this->render('product/show.html.twig', [
             'product' => $product,
         ]);
     }
-
-
 }

@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="{{ app.request.locale }}">
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome to Minecraft Shop!{% endblock %}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{% block title %}{{ 'welcome'|trans }}{% endblock %}</title>
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>🧱</text></svg>">
         {% block stylesheets %}
             <link rel="stylesheet" href="{{ asset('css/minecraft.css') }}">
@@ -16,30 +17,32 @@
             <nav>
                 <ul>
                     <li><a href="{{ path('app_product_index') }}" class="btn-minecraft">
-                        <span class="home-icon">🏠</span> Home
+                        <span class="home-icon">🏠</span> {{ 'home'|trans }}
                     </a></li>
                     <li><a href="{{ path('app_cart_index') }}" class="btn-minecraft">
-                        <span class="cart-icon">🛒</span> Cart
+                        <span class="cart-icon">🛒</span> {{ 'cart'|trans }}
                     </a></li>
                     {% if is_granted('ROLE_USER') %}
                         <li><a href="{{ path('app_logout') }}" class="btn-minecraft">
-                        <span class="logout-icon">🚪</span> Logout
-                    </a></li>
+                        <span class="logout-icon">❌</span> {{ 'logout'|trans }}
+                        </a></li>
                     {% else %}
                         <li><a href="{{ path('app_login') }}" class="btn-minecraft">
-                        <span class="login-icon">🔓</span> Login
+                        <span class="login-icon">🔐</span> {{ 'login'|trans }}
                     </a></li>
                     {% endif %}
+                     {% if is_granted('ROLE_ADMIN') %}
+                        <li><a href="{{ path('app_admin_dashboard') }}" class="btn-minecraft">Admin Dashboard</a></li>
+                    {% endif %}
+</div>
                 </ul>
             </nav>
         </header>
-
         <main class="minecraft-box">
             {% block body %}{% endblock %}
         </main>
-
         <footer class="minecraft-box">
-            <p>&copy; {{ 'now'|date('Y') }} Minecraft Shop. All rights reserved.</p>
+            <p>&copy; {{ 'now'|date('Y') }} Minecraft Shop. {{ 'copyright'|trans }}</p>
         </footer>
     </body>
 </html>
