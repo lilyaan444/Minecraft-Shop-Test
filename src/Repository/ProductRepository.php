@@ -81,4 +81,15 @@ class ProductRepository extends ServiceEntityRepository
 
         return $ratio;
     }
+
+public function countProductsByCategory(): array
+{
+    return $this->createQueryBuilder('p')
+        ->select('c.name AS category, COUNT(p.id) AS productCount')
+        ->join('p.category', 'c') // Assurez-vous que 'p.category' est correct
+        ->groupBy('c.id')
+        ->getQuery()
+        ->getResult();
+}
+
 }

@@ -3,6 +3,7 @@
 {% block title %}Admin Dashboard{% endblock %}
 
 {% block body %}
+
 <div class="admin-dashboard">
     <h1 class="minecraft-title">Admin Dashboard</h1>
     
@@ -29,30 +30,43 @@
         </div>
     </div>
 
-    <div class="recent-orders">
-        <h2>Recent Orders</h2>
-        <table class="table-minecraft">
-            <thead>
-                <tr>
-                    <th>Reference</th>
-                    <th>User</th>
-                    <th>Total</th>
-                    <th>Status</th>
-                    <th>Date</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for order in recent_orders %}
-                    <tr>
-                        <td>{{ order.reference }}</td>
-                        <td>{{ order.user.firstName }} {{ order.user.lastName }}</td>
-                        <td>{{ order.total }} diamonds</td>
-                        <td>{{ order.status }}</td>
-                        <td>{{ order.createdAt|date('Y-m-d H:i:s') }}</td>
-                    </tr>
+    <div class="stats-grid">
+        <div class="stat-card">
+            <h2>Produits par catégorie</h2>
+            <ul>
+                {% for category in productsByCategory %}
+                    <li>{{ category.category }}: {{ category.productCount }}</li>
                 {% endfor %}
-            </tbody>
-        </table>
+            </ul>
+        </div>
+
+        <div class="stat-card">
+            <h2>5 Dernières commandes</h2>
+            <ul>
+                {% for order in recentOrders %}
+                    <li>Commande #{{ order.id }} - {{ order.createdAt|date('Y-m-d') }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="stat-card">
+            <h2>Ratio de disponibilité des produits</h2>
+            <ul>
+                {% for status, ratio in productStatus %}
+                    <li>{{ status }}: {{ ratio }}%</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="stat-card">
+            <h2>Ventes mensuelles (derniers 12 mois)</h2>
+            <ul>
+                {% for month, totalSales in monthlySales %}
+                    <li>Mois {{ month }}: {{ totalSales }} diamonds</li>
+                {% endfor %}
+            </ul>
+        </div>
     </div>
 </div>
+
 {% endblock %}

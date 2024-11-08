@@ -26,12 +26,30 @@ class AdminController extends AbstractController
         UserRepository $userRepository,
         OrderRepository $orderRepository
     ): Response {
+        
+                // Nombre total de produits par catégorie
+        $productsByCategory = $productRepository->countProductsByCategory();
+
+        // Les 5 dernières commandes
+        $recentOrders = $orderRepository->findRecentOrders(5);
+
+        // Ratio de disponibilité des produits
+        $productStatus = $productRepository->getProductStatusRatio();
+
+        // Montant total des ventes par mois sur les 12 derniers mois
+        $monthlySales = $orderRepository->getMonthlySales(12);
+
         return $this->render('admin/dashboard.html.twig', [
             'total_products' => $productRepository->count([]),
             'total_users' => $userRepository->count([]),
             'total_orders' => $orderRepository->count([]),
-            'recent_orders' => $orderRepository->findRecentOrders(5)
+            'recent_orders' => $orderRepository->findRecentOrders(5),
+            'productsByCategory' => $productsByCategory,
+            'recentOrders' => $recentOrders,
+            'productStatus' => $productStatus,
+            'monthlySales' => $monthlySales,
         ]);
+
     }
 
     #[Route('/products', name: 'app_admin_products')]
