@@ -12,3 +12,6 @@ app_homepage:
 change_language:
     path: /change-language/{locale}
     controller: App\Controller\LanguageController::changeLanguage
+credit_cards:
+    path: /credit-cards
+    controller: App\Controller\CreditCardController::index

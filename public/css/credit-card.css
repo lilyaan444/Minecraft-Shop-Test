@@ -1,0 +1,38 @@
+.credit-card-form {
+    background-color: rgba(0, 0, 0, 0.7);
+    border: 2px solid #555555;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+}
+
+.credit-card-form label {
+    display: block;
+    margin-bottom: 5px;
+    color: #ffffff;
+}
+
+.credit-card-form input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 15px;
+    border: 2px solid #555555;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 4px;
+}
+
+.btn-minecraft.btn-danger {
+    background-color: #c53030;
+}
+
+.btn-minecraft.btn-danger:hover {
+    background-color: #9b2c2c;
+}
+
+.btn-minecraft.btn-primary {
+    background-color: #2b6cb0;
+}
+
+.btn-minecraft.btn-primary:hover {
+    background-color: #2c5282;
+}

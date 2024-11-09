@@ -34,10 +34,7 @@
                         <span class="login-icon">🔐</span> {{ 'login'|trans }}
                     </a></li>
                     {% endif %}
-                        {% if is_granted('ROLE_ADMIN') %}
-        <a href="{{ path('app_admin_dashboard') }}">Admin</a>
-        <a href="{{ path('app_logout') }}">Logout</a>
-    {% endif %}
+
 </div>
                 </ul>
             </nav>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="{{ app.request.locale }}">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {% block stylesheets %}
+            {{ encore_entry_link_tags('app') }}
+        {% endblock %}
+        {% block javascripts %}
+            {{ encore_entry_script_tags('app') }}
+        {% endblock %}
+    </head>
+    <body>
+        <header class="minecraft-box">
+            <nav>
+                <ul>
+                    <li><a href="{{ path('app_product_index') }}" class="btn-minecraft">Home</a></li>
+                    <li><a href="{{ path('app_cart_index') }}" class="btn-minecraft">Cart</a></li>
+                    {% if is_granted('ROLE_USER') %}
+                        <li><a href="{{ path('app_credit_card_index') }}" class="btn-minecraft">Manage Cards</a></li>
+                        <li><a href="{{ path('app_logout') }}" class="btn-minecraft">Logout</a></li>
+                    {% else %}
+                        <li><a href="{{ path('app_login') }}" class="btn-minecraft">Login</a></li>
+                    {% endif %}
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <li><a href="{{ path('app_admin_dashboard') }}" class="btn-minecraft">Admin Dashboard</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </header>
+
+        <main class="container mx-auto px-4 py-8">
+            {% block body %}{% endblock %}
+        </main>
+
+        <footer class="minecraft-box mt-8 text-center">
+            <p>&copy; {{ 'now'|date('Y') }} Minecraft Shop. {{ 'copyright'|trans }}</p>
+        </footer>
+    </body>
+</html>
