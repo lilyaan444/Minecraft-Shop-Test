@@ -399,3 +399,41 @@ nav ul li {
   border: 1px solid #f5c6cb;
 }
 
+.minecraft-search-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.minecraft-input {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  background-color: rgba(0, 0, 0, 0.7);
+  border: 2px solid #555555;
+  color: #ffffff;
+  margin-bottom: 20px;
+}
+
+.minecraft-input:focus {
+  outline: none;
+  border-color: #7e7e7e;
+}
+
+.search-results {
+  margin-top: 20px;
+}
+
+.no-results {
+  text-align: center;
+  padding: 20px;
+  background-color: rgba(0, 0, 0, 0.7);
+  border: 2px solid #555555;
+  color: #ffffff;
+}
+
+.search-page h1 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #ffffff;
+}

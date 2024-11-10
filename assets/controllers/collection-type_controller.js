@@ -9,6 +9,7 @@ export default class extends Controller {
 
     addForm(event) {
         event.preventDefault();
+        alert('Add form clicked');
         const prototype = this.element.dataset.prototype;
         const newForm = prototype.replace(/__name__/g, this.index);
         this.index++;
@@ -28,6 +29,7 @@ export default class extends Controller {
 
     removeForm(event, container) {
         event.preventDefault();
+        alert('Remove form clicked');
         container.remove();
     }
 }

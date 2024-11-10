@@ -13,6 +13,7 @@
         {% endblock %}
 
         {% block javascripts %}
+                    {{ encore_entry_script_tags('app') }}
         {% endblock %}
     </head>
     <body>
@@ -22,6 +23,7 @@
                     <li><a href="{{ path('app_product_index') }}" class="btn-minecraft">
                         <span class="home-icon">🏠</span> {{ 'home'|trans }}
                     </a></li>
+                    <li><a href="{{ path('app_search') }}" class="btn-minecraft">Search</a></li>
                     {% if is_granted('ROLE_ADMIN') %}
                         <li><a href="{{ path('app_admin_dashboard') }}" class="btn-minecraft">
                             📊 Dashboard

@@ -42,3 +42,9 @@
     {{ form_end(form) }}
 </div>
 {% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('assets/controllers/collection-type_controller.js') }}"></script>
+    <script src="{{ asset('assets/controllers/credit-card-format_controller.js') }}"></script>
+    <script src="{{ asset('assets/controllers/expiration-date-format_controller.js') }}"></script>
+{% endblock %}
