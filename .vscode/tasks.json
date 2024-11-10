@@ -1,0 +1,13 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "idx-shell",
+			"command": "/nix/store/873zd8w3l33yb092wqfxrzlc21cl6qq0-run-server",
+			"name": "run-server",
+			"hook": "onStart",
+			"problemMatcher": [],
+			"label": "idx-onStart: run-server [onStart]"
+		}
+	]
+}
