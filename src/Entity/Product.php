@@ -31,8 +31,8 @@ class Product
     #[ORM\Column(type: 'integer')]
     private ?int $stock = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $status = null;
+    #[ORM\Column(length: 30)]
+    private string $status = 'available';
 
     #[ORM\ManyToOne(inversedBy: 'products')]
     #[ORM\JoinColumn(nullable: false)]

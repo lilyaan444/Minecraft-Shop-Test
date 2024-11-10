@@ -18,6 +18,11 @@ class CartService
 
     public function add(int $id): void
     {
+        $product = $this->productRepository->find($id);
+        if (!$product || $product->getStatus() === 'unavailable') {
+            throw new \Exception('This product is unavailable.');
+        }
+
         $cart = $this->session->get('cart', []);
         if (!empty($cart[$id])) {
             $cart[$id]++;

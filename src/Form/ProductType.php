@@ -25,6 +25,11 @@ class ProductType extends AbstractType
                 'label' => 'Price (in diamonds)',
                 'attr' => ['placeholder' => 'Enter price']
             ])
+            ->add('category', EntityType::class, [
+                'class' => Category::class,
+                'choice_label' => 'name',
+                'label' => 'Category',
+            ])
             ->add('stock', NumberType::class, [
                 'label' => 'Stock Quantity',
                 'attr' => ['placeholder' => 'Enter stock quantity']

@@ -28,6 +28,7 @@ class CartController extends AbstractController
     public function add(int $id, Request $request, CartService $cartService): Response
     {
         $cartService->add($id);
+        $this->addFlash('success', 'Item added to cart successfully!');
 
         if ($request->isXmlHttpRequest()) {
             return new JsonResponse([
@@ -44,6 +45,7 @@ class CartController extends AbstractController
     {
         $data = json_decode($request->getContent(), true);
         $cartService->update($id, $data['quantity']);
+        $this->addFlash('success', 'Cart updated successfully!');
 
         return new JsonResponse([
             'total' => $cartService->getTotal(),
@@ -55,6 +57,7 @@ class CartController extends AbstractController
     public function remove(int $id, Request $request, CartService $cartService): Response
     {
         $cartService->remove($id);
+        $this->addFlash('success', 'Item removed from cart successfully!');
 
         if ($request->isXmlHttpRequest()) {
             return new JsonResponse([
@@ -89,8 +92,15 @@ class CartController extends AbstractController
 
             // Update stock
             $product = $item['product'];
-            $product->setStock($product->getStock() - $item['quantity']);
+            $newStock = $product->getStock() - $item['quantity'];
+            $product->setStock($newStock);
+            if ($newStock <= 0) {
+                $product->setStatus('unavailable');
+            }
+            $entityManager->persist($product);
+            $entityManager->flush();
         }
+        
 
         $entityManager->persist($order);
         $entityManager->flush();

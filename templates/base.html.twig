@@ -22,10 +22,18 @@
                     <li><a href="{{ path('app_product_index') }}" class="btn-minecraft">
                         <span class="home-icon">🏠</span> {{ 'home'|trans }}
                     </a></li>
-                    <li><a href="{{ path('app_cart_index') }}" class="btn-minecraft">
-                        🛒 Cart <span class="cart-count" data-cart-target="count">{{ app.session.get('cart')|length }}</span>
-                    </a></li>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <li><a href="{{ path('app_admin_dashboard') }}" class="btn-minecraft">
+                            📊 Dashboard
+                        </a></li>
+                    {% else %}
+                        <li><a href="{{ path('app_cart_index') }}" class="btn-minecraft">
+                            🛒 Cart <span class="cart-count" data-cart-target="count">{{ app.session.get('cart')|length }}</span>
+                        </a></li>
+                    {% endif %}
                     {% if is_granted('ROLE_USER') %}
+                        <li><a href="{{ path('app_credit_card_index') }}" class="btn-minecraft">
+                        <span class="card-icon">💵</span> {{ 'card'|trans }}
                         <li><a href="{{ path('app_logout') }}" class="btn-minecraft">
                         <span class="logout-icon">❌</span> {{ 'logout'|trans }}
                         </a></li>
@@ -40,10 +48,15 @@
             </nav>
         </header>
         <main class="minecraft-box">
+            {% for label, messages in app.flashes %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ label }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endfor %}
+
             {% block body %}{% endblock %}
         </main>
-        <footer class="minecraft-box">
-            <p>&copy; {{ 'now'|date('Y') }} Minecraft Shop. {{ 'copyright'|trans }}</p>
-        </footer>
     </body>
 </html>

@@ -13,11 +13,16 @@
             </p>
             <p>{{ 'stock'|trans }}: {{ product.stock }}</p>
             <p>{{ product.description }}</p>
+
+            {% if product.status == 'unavailable' %}
+                <p class="text-danger">{{ 'unavailable'|trans }}</p>
+            {% else %}
+                <form action="{{ path('app_cart_add', {'id': product.id}) }}" method="post">
+                    <button type="submit" class="btn-minecraft">{{ 'add_to_cart'|trans }}</button>
+                </form>
+            {% endif %}
         </div>
         <div class="product-actions">
-            <form action="{{ path('app_cart_add', {'id': product.id}) }}" method="post">
-                <button type="submit" class="btn-minecraft">{{ 'add_to_cart'|trans }}</button>
-            </form>
             <a href="{{ path('app_product_index') }}" class="btn-minecraft">{{ 'back_to_products'|trans }}</a>
         </div>
     </div>

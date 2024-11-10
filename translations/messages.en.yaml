@@ -4,6 +4,7 @@ home: Home
 cart: Cart
 login: Login
 logout: Logout
+card: Card
 copyright: All rights reserved.
 change_language: "Change language"
 

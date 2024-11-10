@@ -10,6 +10,8 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Repository\OrderRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 #[Route('/order')]
 class OrderController extends AbstractController
@@ -34,10 +36,16 @@ class OrderController extends AbstractController
         $order->setReference(uniqid());
 
         foreach ($cartItems as $item) {
+            $product = $item['product'];
+            if ($product->getStatus() === 'unavailable') {
+                $this->addFlash('error', 'One or more products are unavailable.');
+                return $this->redirectToRoute('app_cart_index');
+            }
+
             $orderItem = new OrderItem();
-            $orderItem->setProduct($item['product']);
+            $orderItem->setProduct($product);
             $orderItem->setQuantity($item['quantity']);
-            $orderItem->setProductPrice($item['product']->getPrice());
+            $orderItem->setProductPrice($product->getPrice());
             $order->addOrderItem($orderItem);
 
             // Update product stock
@@ -49,15 +57,17 @@ class OrderController extends AbstractController
         $entityManager->flush();
 
         $cartService->clear();
+        $this->addFlash('success', 'Your order has been placed successfully!');
 
         return $this->redirectToRoute('app_order_confirmation', ['reference' => $order->getReference()]);
     }
 
     #[Route('/confirmation/{reference}', name: 'app_order_confirmation', methods: ['GET'])]
-    public function confirmation(Order $order): Response
+    public function confirmation(string $reference, OrderRepository $orderRepository): Response
     {
-        // Check if the order belongs to the current user
-        if ($order->getUser() !== $this->getUser()) {
+        $order = $orderRepository->findOneBy(['reference' => $reference]);
+
+        if (!$order || $order->getUser() !== $this->getUser()) {
             throw $this->createAccessDeniedException();
         }
 

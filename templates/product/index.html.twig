@@ -15,10 +15,16 @@
                     <span class="tooltiptext">{{ 'in_game_currency'|trans }}</span>
                 </p>
                 <p>{{ 'stock'|trans }}: {{ product.stock }}</p>
+
+                {% if product.status == 'unavailable' %}
+                    <p class="text-danger">{{ 'unavailable'|trans }}</p>
+                {% else %}
+                    <form action="{{ path('app_cart_add', {'id': product.id}) }}" method="post">
+                        <button type="submit" class="btn-minecraft">{{ 'add_to_cart'|trans }}</button>
+                    </form>
+                {% endif %}
+                
                 <a href="{{ path('app_product_show', {'id': product.id}) }}" class="btn-minecraft">{{ 'view'|trans }}</a>
-                <form action="{{ path('app_cart_add', {'id': product.id}) }}" method="post">
-                    <button type="submit" class="btn-minecraft">{{ 'add_to_cart'|trans }}</button>
-                </form>
             </div>
         {% endfor %}
     </div>

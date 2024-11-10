@@ -22,8 +22,6 @@ class Category
     #[ORM\Column(length: 255)]
     private ?string $minecraftType = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $icon = null;
 
     #[ORM\OneToMany(mappedBy: 'category', targetEntity: Product::class)]
     private Collection $products;
@@ -60,16 +58,7 @@ class Category
         return $this;
     }
 
-    public function getIcon(): ?string
-    {
-        return $this->icon;
-    }
 
-    public function setIcon(string $icon): self
-    {
-        $this->icon = $icon;
-        return $this;
-    }
 
     /**
      * @return Collection<int, Product>

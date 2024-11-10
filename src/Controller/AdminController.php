@@ -60,7 +60,7 @@ class AdminController extends AbstractController
         ]);
     }
 
-    #[Route('/product/new', name: 'app_admin_product_new', methods: ['GET', 'POST'])]
+    #[Route('/products/new', name: 'app_admin_product_new', methods: ['GET', 'POST'])]
     public function newProduct(Request $request, EntityManagerInterface $entityManager): Response
     {
         $product = new Product();
@@ -68,6 +68,7 @@ class AdminController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $product = $form->getData();
             $entityManager->persist($product);
             $entityManager->flush();
 
@@ -114,5 +115,18 @@ class AdminController extends AbstractController
         return $this->render('admin/orders.html.twig', [
             'orders' => $orderRepository->findBy([], ['createdAt' => 'DESC'])
         ]);
+    }
+
+    #[Route('/product/{id}/delete', name: 'app_admin_product_delete', methods: ['POST'])]
+    public function deleteProduct(Request $request, Product $product, EntityManagerInterface $entityManager): Response
+    {
+        if ($this->isCsrfTokenValid('delete' . $product->getId(), $request->request->get('_token'))) {
+            $entityManager->remove($product);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Product deleted successfully!');
+        }
+
+        return $this->redirectToRoute('app_admin_products');
     }
 }
