@@ -1,24 +1,21 @@
+// Import necessary CSS files
 import './bootstrap.js';
 import './styles/app.css';
-import './styles/credit-card.css';
+import '@symfony/ux-live-component';
 
 console.log('This log comes from assets/app.js - welcome to AssetMapper! 🎉');
 
-// Démarrer Stimulus
-import { startStimulusApp } from '@symfony/stimulus-bridge';
-import { registerVueControllerComponents } from '@symfony/ux-vue';
-import '@symfony/ux-live-component/dist/style.css';
+import { Application } from 'stimulus';
+import { definitionsFromContext } from 'stimulus/webpack-helpers';
 
-import '@symfony/ux-live-component';
-import { startStimulusApp } from '@symfony/stimulus-bridge';
-import { LiveController } from '@symfony/ux-live-component';
-startStimulusApp().register('live', LiveController);
+import creditCardFormController from './controllers/collection-type_controller';
+import cardNumberFormatterController from './controllers/credit-card-format_controller';
+import expirationDateFormatterController from './controllers/expiration-date-format_controller';
 
-import LiveController from '@symfony/ux-live-component';
-export const app = startStimulusApp(require.context(
-    '@symfony/stimulus-bridge/lazy-controller-loader!./controllers',
-    true,
-    /\.[jt]sx?$/
-));
+// Start the Stimulus application
+const application = Application.start();
 
-app.register('live', LiveController);
+// Load controllers dynamically
+application.register('credit-card-form', creditCardFormController);
+application.register('card-number-formatter', cardNumberFormatterController);
+application.register('expiration-date-formatter', expirationDateFormatterController);

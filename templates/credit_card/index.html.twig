@@ -2,6 +2,11 @@
 
 {% block title %}Manage Credit Cards{% endblock %}
 
+{% block javascripts %}
+    {# Include the JS files and Stimulus controller setup #}
+    {{ encore_entry_script_tags('app') }}
+{% endblock %}
+
 {% block body %}
 <div class="container mx-auto px-4 py-8">
     <h1 class="text-2xl font-bold mb-6">Manage Credit Cards</h1>
@@ -14,7 +19,7 @@
 
     {{ form_start(form, {'attr': {'class': 'space-y-6'}}) }}
         <div class="credit-cards-collection" 
-             data-controller="collection-type"
+             data-controller="credit-card-form" 
              data-prototype="{{ form_widget(form.creditCards.vars.prototype)|e('html_attr') }}">
             
             {% for creditCardForm in form.creditCards %}
@@ -22,8 +27,10 @@
                     {{ form_row(creditCardForm.number, {'attr': {'class': 'form-input mt-1 block w-full rounded-md border-gray-300 shadow-sm'}}) }}
                     {{ form_row(creditCardForm.expirationDate, {'attr': {'class': 'form-input mt-1 block w-full rounded-md border-gray-300 shadow-sm'}}) }}
                     {{ form_row(creditCardForm.cvv, {'attr': {'class': 'form-input mt-1 block w-full rounded-md border-gray-300 shadow-sm'}}) }}
-                    
-                    <button type="button" class="btn-minecraft btn-danger mt-2" onclick="this.closest('.credit-card-form').remove()">
+
+                    <button type="button" 
+                            class="btn-minecraft btn-danger mt-2"
+                            data-action="credit-card-form#removeForm">
                         Remove Card
                     </button>
                 </div>
@@ -32,7 +39,7 @@
 
         <button type="button" 
                 class="btn-minecraft mt-4"
-                data-action="collection-type#addForm">
+                data-action="credit-card-form#addForm">
             Add Another Card
         </button>
 
@@ -41,10 +48,4 @@
         </button>
     {{ form_end(form) }}
 </div>
-{% endblock %}
-
-{% block javascripts %}
-    <script src="{{ asset('assets/controllers/collection-type_controller.js') }}"></script>
-    <script src="{{ asset('assets/controllers/credit-card-format_controller.js') }}"></script>
-    <script src="{{ asset('assets/controllers/expiration-date-format_controller.js') }}"></script>
 {% endblock %}

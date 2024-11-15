@@ -38,6 +38,10 @@ body {
     box-shadow: 4px 4px #2e2e2e;
 }
 
+.actions {
+    margin-left: 10px;
+}
+
 .stat-card:hover {
     transform: translateY(-5px);
     box-shadow: 6px 6px #565656;

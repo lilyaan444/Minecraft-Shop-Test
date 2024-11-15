@@ -6,16 +6,18 @@
         <title>{% block title %}{{ 'welcome'|trans }}{% endblock %}</title>
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>🧱</text></svg>">
         {% block stylesheets %}
+            {{ encore_entry_link_tags('app') }}
             <link rel="stylesheet" href="{{ asset('css/minecraft.css') }}">
             {% if app.request.attributes.get('_route') starts with 'app_admin' %}
                 <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
             {% endif %}
         {% endblock %}
 
-        {% block javascripts %}
+{% block javascripts %}
             {{ encore_entry_script_tags('app') }}
-            
-        {% endblock %}
+    {{ encore_entry_script_tags('app') }}
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+{% endblock %}
     </head>
     <body>
         <header class="minecraft-box">

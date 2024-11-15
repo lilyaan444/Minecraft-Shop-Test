@@ -25,6 +25,8 @@ class CreditCardController extends AbstractController
     #[Route('/', name: 'app_credit_card_index', methods: ['GET', 'POST'])]
     public function index(Request $request, EntityManagerInterface $entityManager): Response
     {
+        $creditCards = $entityManager->getRepository(CreditCard::class)->findBy(['user' => $this->getUser()]);
+
         $form = $this->createForm(CreditCardCollectionType::class, ['creditCards' => $this->creditCards]);
         $form->handleRequest($request);
 
@@ -42,6 +44,7 @@ class CreditCardController extends AbstractController
 
         return $this->render('credit_card/index.html.twig', [
             'form' => $form->createView(),
+            'creditCards' => $creditCards,
         ]);
     }
 }

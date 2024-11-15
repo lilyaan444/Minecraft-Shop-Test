@@ -1,32 +1,41 @@
-<div {{ attributes }} data-controller="live">
-    <input
-        type="search"
-        name="query"
-        value="{{ computed.query }}"  <!-- Utilise computed.query ici -->
-        data-model="query"
-        data-action="input->live#update"
-        placeholder="Search products..."
-        class="minecraft-input"
-        autocomplete="off"
-    >
-</div>
+<div{{ attributes }} class="search-page">
+    <div class="minecraft-search-container">
+        <input
+            type="search"
+            name="query"
+            value="{{ query }}"
+            data-model="query"
+            placeholder="Search products..."
+            class="minecraft-input"
+            autocomplete="off"
+            data-action="input->live#update"
+        >
 
-<div class="search-results">
-    {% if computed.products is not empty %}
-        <div class="product-grid">
-            {% for product in computed.products %}
-                <div class="product-card">
-                    <img src="{{ asset('images/minecraft/' ~ product.minecraftImage) }}" alt="{{ product.name }}">
-                    <h2>{{ product.name }}</h2>
-                    <p>{{ product.price }} diamonds</p>
-                    <p>Stock: {{ product.stock }}</p>
-                    <a href="{{ path('app_product_show', {'id': product.id}) }}" class="btn-minecraft">Voir</a>
+        <div class="search-results">
+            {% set products = this.products %}
+            {% if products is not empty %}
+                <div class="product-grid">
+                    {% for product in products %}
+                        <div class="product-card">
+                            <img src="{{ asset('images/minecraft/' ~ product.minecraftImage) }}" alt="{{ product.name }}">
+                            <h2>{{ product.name }}</h2>
+                            <p class="minecraft-tooltip">
+                                {{ product.price }} diamonds
+                                <span class="tooltiptext">{{ 'in_game_currency'|trans }}</span>
+                            </p>
+                            <p>{{ 'stock'|trans }}: {{ product.stock }}</p>
+                            <a href="{{ path('app_product_show', {'id': product.id}) }}" class="btn-minecraft">{{ 'view'|trans }}</a>
+                            <form action="{{ path('app_cart_add', {'id': product.id}) }}" method="post">
+                                <button type="submit" class="btn-minecraft">{{ 'add_to_cart'|trans }}</button>
+                            </form>
+                        </div>
+                    {% endfor %}
                 </div>
-            {% endfor %}
+            {% elseif query is not empty %}
+                <div class="no-results">
+                    <p>No products found matching "{{ query }}"</p>
+                </div>
+            {% endif %}
         </div>
-    {% elseif computed.query is not empty %}
-        <div class="no-results">
-            <p>Aucun produit trouvé pour "{{ computed.query }}"</p>
-        </div>
-    {% endif %}
+    </div>
 </div>

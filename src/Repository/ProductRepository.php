@@ -82,25 +82,27 @@ class ProductRepository extends ServiceEntityRepository
         return $ratio;
     }
 
-public function countProductsByCategory(): array
-{
-    return $this->createQueryBuilder('p')
-        ->select('c.name AS category, COUNT(p.id) AS productCount')
-        ->join('p.category', 'c') // Assurez-vous que 'p.category' est correct
-        ->groupBy('c.id')
-        ->getQuery()
-        ->getResult();
-}
+    public function countProductsByCategory(): array
+    {
+        return $this->createQueryBuilder('p')
+            ->select('c.name AS category, COUNT(p.id) AS productCount')
+            ->join('p.category', 'c') // Assurez-vous que 'p.category' est correct
+            ->groupBy('c.id')
+            ->getQuery()
+            ->getResult();
+    }
 
-public function searchByName(string $query): array
-{
-    return $this->createQueryBuilder('p')
-        ->where('p.name LIKE :query')
-        ->setParameter('query', '%'.$query.'%')
-        ->getQuery()
-        ->getResult()
-    ;
-}
+
+    public function searchByName(string $query): array
+    {
+        return $this->createQueryBuilder('p')
+            ->where('LOWER(p.name) LIKE LOWER(:query)')
+            ->setParameter('query', '%' . $query . '%')
+            ->orderBy('p.name', 'ASC')
+            ->setMaxResults(12)
+            ->getQuery()
+            ->getResult();
+    }
 
 
 }

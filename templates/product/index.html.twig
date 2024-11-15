@@ -5,8 +5,16 @@
 {% block body %}
     <h1>{{ 'welcome'|trans }}</h1>
 
+    <div class="category-list">
+        {% for category in categories %}
+            <div class="category-item">
+                <span>{{ ('category_' ~ category.name|lower)|trans }}</span>
+            </div>
+        {% endfor %}
+    </div>
+
     <div class="product-grid">
-        {% for product in products %}
+        {% for product in pagination %}
             <div class="product-card">
                 <img src="{{ asset('images/minecraft/' ~ product.minecraftImage) }}" alt="{{ product.name }}">
                 <h2>{{ product.name }}</h2>
@@ -15,17 +23,15 @@
                     <span class="tooltiptext">{{ 'in_game_currency'|trans }}</span>
                 </p>
                 <p>{{ 'stock'|trans }}: {{ product.stock }}</p>
-
-                {% if product.status == 'unavailable' %}
-                    <p class="text-danger">{{ 'unavailable'|trans }}</p>
-                {% else %}
-                    <form action="{{ path('app_cart_add', {'id': product.id}) }}" method="post">
-                        <button type="submit" class="btn-minecraft">{{ 'add_to_cart'|trans }}</button>
-                    </form>
-                {% endif %}
-                
                 <a href="{{ path('app_product_show', {'id': product.id}) }}" class="btn-minecraft">{{ 'view'|trans }}</a>
+                <form action="{{ path('app_cart_add', {'id': product.id}) }}" method="post">
+                    <button type="submit" class="btn-minecraft">{{ 'add_to_cart'|trans }}</button>
+                </form>
             </div>
         {% endfor %}
+    </div>
+
+    <div class="pagination">
+        {{ knp_pagination_render(pagination) }}
     </div>
 {% endblock %}
