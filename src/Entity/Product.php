@@ -60,7 +60,7 @@ class Product
         return $this;
     }
 
-// Suggested code may be subject to a license. Learn more: ~LicenseLog:824741366.
+    // Suggested code may be subject to a license. Learn more: ~LicenseLog:824741366.
     public function getName(): ?string
     {
         return $this->name;
@@ -78,7 +78,7 @@ class Product
         return $this;
     }
 
-// Suggested code may be subject to a license. Learn more: ~LicenseLog:808610822.
+    // Suggested code may be subject to a license. Learn more: ~LicenseLog:808610822.
     public function getPrice(): ?float
     {
         return $this->price;
@@ -90,7 +90,7 @@ class Product
         return $this;
     }
 
-// Suggested code may be subject to a license. Learn more: ~LicenseLog:
+    // Suggested code may be subject to a license. Learn more: ~LicenseLog:
 
     public function getDescription(): ?string
     {
@@ -103,7 +103,7 @@ class Product
         return $this;
     }
 
-// Suggested code may be subject to a license. Learn more: ~LicenseLog:
+    // Suggested code may be subject to a license. Learn more: ~LicenseLog:
 
     public function getStock(): ?int
     {
@@ -117,7 +117,7 @@ class Product
         return $this;
     }
 
-// Suggested code may be subject to a license. Learn more: ~LicenseLog:
+    // Suggested code may be subject to a license. Learn more: ~LicenseLog:
 
     public function getStatus(): ?string
     {
@@ -132,7 +132,7 @@ class Product
         return $this;
     }
 
-// Suggested code may be subject to a license. Learn more: ~LicenseLog:
+    // Suggested code may be subject to a license. Learn more: ~LicenseLog:
 
     public function getCategory(): ?Category
     {
@@ -141,7 +141,3 @@ class Product
 
 
 }
-
-
-
-

@@ -1,10 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Search Products - {{ 'welcome'|trans }}{% endblock %}
+{% block title %}Chercher un produit {% endblock %}
 
 {% block body %}
     <div class="search-page">
-        <h1>Search Products</h1>
-        {{ component('product_search') }}
+        <h1>Recherche de produits</h1>
+        {{ component('ProductSearch') }}
     </div>
 {% endblock %}

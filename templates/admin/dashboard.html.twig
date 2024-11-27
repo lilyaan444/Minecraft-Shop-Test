@@ -11,22 +11,22 @@
         <div class="stat-card">
             <img src="{{ asset('images/minecraft/diamond.png') }}" alt="Products">
             <h2>{{ total_products }}</h2>
-            <p>Total Products</p>
-            <a href="{{ path('app_admin_products') }}" class="btn-minecraft">Manage Products</a>
+            <p>{{ 'total_product'|trans }}</p>
+            <a href="{{ path('app_admin_products') }}" class="btn-minecraft">{{ 'view_product'|trans }}</a>
         </div>
         
         <div class="stat-card">
             <img src="{{ asset('images/minecraft/player.png') }}" alt="Users">
             <h2>{{ total_users }}</h2>
-            <p>Registered Users</p>
-            <a href="{{ path('app_admin_users') }}" class="btn-minecraft">View Users</a>
+            <p>{{ 'registered_user'|trans }}</p>
+            <a href="{{ path('app_admin_users') }}" class="btn-minecraft">{{ 'view_user'|trans }}</a>
         </div>
         
         <div class="stat-card">
             <img src="{{ asset('images/minecraft/chest.png') }}" alt="Orders">
             <h2>{{ total_orders }}</h2>
-            <p>Total Orders</p>
-            <a href="{{ path('app_admin_orders') }}" class="btn-minecraft">View Orders</a>
+            <p>{{ 'total_order'|trans }}</p>
+            <a href="{{ path('app_admin_orders') }}" class="btn-minecraft">{{ 'view_order'|trans }}</a>
         </div>
     </div>
 

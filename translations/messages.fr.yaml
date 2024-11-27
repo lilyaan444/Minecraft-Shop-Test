@@ -2,12 +2,17 @@
 welcome: Bienvenue sur la boutique Minecraft !
 home: Accueil
 cart: Panier
+search: Rechercher
 login: Connexion
+please: Connectez-vous !
+your_minecraft_cart: Votre panier Minecraft
+order_history: Historique des commandes
 logout: Déconnexion
+search_product: Rechercher un produit
 card: Carte
 copyright: Tous droits réservés.
 change_language: "Changer le langage"
-
+thanks_for: "Merci pour votre achat ! Votre numéro de commande est"
 
 # Products
 view: Voir
@@ -31,6 +36,12 @@ clear_cart: Vider le panier
 proceed_to_checkout: Procéder au paiement
 cart_empty: Votre panier est vide.
 continue_shopping: Continuer vos achats
+product: produit
+quantity: quantité
+actions : actions
+remove: Retirer
+pay: PAYER
+
 
 # Checkout
 checkout: Paiement
@@ -47,3 +58,15 @@ total: Total
 
 # Error messages
 product_not_found: Le produit n'existe pas
+
+#admin 
+total_product: Total des produits
+registered_user : Utilisateurs Inscrits
+total_order: Commandes Totales
+view_product: Voir les Produits
+view_user : Voir les Utilisateurs
+view_order: Voir les Commandes
+back: Retour
+edit: MODIFIER
+delete: RETIRER
+add: AJOUTER UN NOUVEAU PRODUIT

@@ -2,11 +2,17 @@
 welcome: Welcome to Minecraft Shop!
 home: Home
 cart: Cart
+search: Search
+search_product: Search Product
+your_minecraft_cart : Your Minecraft Cart
+products: Products
 login: Login
+please: Please sign in
 logout: Logout
 card: Card
 copyright: All rights reserved.
 change_language: "Change language"
+thanks_for: "Thank you for your purchase! Your order reference is"
 
 # Products
 view: View
@@ -30,6 +36,11 @@ clear_cart: Clear Cart
 proceed_to_checkout: Proceed to Checkout
 cart_empty: Your cart is empty.
 continue_shopping: Continue shopping
+product: product
+quantity: quantity
+actions : actions
+remove: Remove
+pay: PAY
 
 # Checkout
 checkout: Checkout
@@ -46,3 +57,15 @@ total: Total
 
 # Error messages
 product_not_found: The product does not exist
+
+#admin
+total_product: Total Products
+registered_user : Registered Users
+total_order: Total Orders
+view_product: View Products
+view_user : View Users
+view_order: View Orders
+back: Back
+edit: EDIT
+delete: DELETE
+add: ADD NEW PRODUCT

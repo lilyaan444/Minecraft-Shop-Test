@@ -6,7 +6,7 @@ controllers:
 app_homepage:
     path: /{_locale}
     controller: App\Controller\DefaultController::index
-    defaults: { _locale: 'en' }
+    defaults: { _locale: 'fr' }
     requirements:
         _locale: en|fr
 change_language:

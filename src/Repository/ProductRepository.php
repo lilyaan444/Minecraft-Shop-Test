@@ -99,7 +99,6 @@ class ProductRepository extends ServiceEntityRepository
             ->where('LOWER(p.name) LIKE LOWER(:query)')
             ->setParameter('query', '%' . $query . '%')
             ->orderBy('p.name', 'ASC')
-            ->setMaxResults(12)
             ->getQuery()
             ->getResult();
     }

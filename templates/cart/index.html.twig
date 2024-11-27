@@ -3,21 +3,22 @@
 {% block title %}Your Minecraft Cart{% endblock %}
 
 {% block body %}
-    <div {{ stimulus_controller('cart', {
-        updateUrl: path('app_cart_update', {id: '__id__'}),
-        removeUrl: path('app_cart_remove', {id: '__id__'})
-    }) }}>
-        <h1 class="minecraft-title">Your Minecraft Cart</h1>
+<div {{ stimulus_controller('cart', {
+    updateUrl: path('app_cart_update', {id: 'ID'}),
+    removeUrl: path('app_cart_remove', {id: 'ID'})
+}) }}>
+
+        <h1 class="minecraft-title">{{ 'your_minecraft_cart'|trans}} </h1>
 
         {% if items|length > 0 %}
             <table class="table-minecraft">
                 <thead>
                     <tr>
-                        <th>Product</th>
-                        <th>Quantity</th>
-                        <th>Price</th>
-                        <th>Total</th>
-                        <th>Actions</th>
+                        <th>{{ 'product'|trans}}</th>
+                        <th>{{ 'quantity'|trans}}</th>
+                        <th>{{ 'price'|trans}}</th>
+                        <th>{{ 'total'|trans}}</th>
+                        <th>{{ 'actions'|trans}}</th>
                     </tr>
                 </thead>
                 <tbody data-cart-target="items">
@@ -40,16 +41,21 @@
                             <td>{{ item.product.price }} diamonds</td>
                             <td>{{ item.product.price * item.quantity }} diamonds</td>
                             <td>
-                                <button data-product-id="{{ item.product.id }}"
-                                        data-action="cart#removeItem"
-                                        class="btn-minecraft">Remove</button>
+                              <button 
+    data-controller="cart"
+    data-action="cart#removeItem"
+    data-product-id="{{ item.product.id }}"
+    class="btn-minecraft"
+>
+    {{ 'remove'|trans }}
+</button>
                             </td>
                         </tr>
                     {% endfor %}
                 </tbody>
                 <tfoot>
                     <tr>
-                        <td colspan="3"><strong>Total</strong></td>
+                        <td colspan="3"><strong>{{ 'total'|trans}}</strong></td>
                         <td data-cart-target="total"><strong>{{ total }} diamonds</strong></td>
                         <td></td>
                     </tr>
@@ -57,10 +63,10 @@
             </table>
 
             <form action="{{ path('app_cart_checkout') }}" method="post" class="checkout-form">
-                <button type="submit" class="btn-minecraft btn-checkout">Pay with Diamonds</button>
+                <button type="submit" class="btn-minecraft btn-checkout">{{ 'pay'|trans}}</button>
             </form>
         {% else %}
-            <p>Your cart is empty. <a href="{{ path('app_product_index') }}" class="btn-minecraft">Continue shopping</a></p>
+            <p>{{'cart_empty' |trans }} <a href="{{ path('app_product_index') }}" class="btn-minecraft">{{'continue_shopping' |trans }}</a></p>
         {% endif %}
     </div>
 {% endblock %}

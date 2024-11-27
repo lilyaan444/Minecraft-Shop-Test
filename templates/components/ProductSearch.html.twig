@@ -1,0 +1,41 @@
+<div{{ attributes }}>
+     <div class="minecraft-search-container">
+        <input
+    type="search"
+    name="query"
+    value="{{ query }}"
+    data-model="query"
+    placeholder="Recherche de produits..."
+    class="minecraft-input"
+    autocomplete="off"
+    data-action="input->live#update"
+>
+
+
+        <div class="search-results">
+            {% set products = this.products %}
+            {% if products is not empty %}
+                <div class="product-grid">
+                    {% for product in products %}
+                        <div class="product-card">
+                            <img src="{{ asset('images/minecraft/' ~ product.minecraftImage) }}" alt="{{ product.name }}">
+                            <h2>{{ product.name }}</h2>
+                            <p class="minecraft-tooltip">
+                                {{ product.price }} diamonds
+                                <span class="tooltiptext">{{ 'in_game_currency'|trans }}</span>
+                            </p>
+                            <p>{{ 'stock'|trans }}: {{ product.stock }}</p>
+                            <form action="{{ path('app_cart_add', {'id': product.id}) }}" method="post">
+                                <button type="submit" class="btn-minecraft">{{ 'add_to_cart'|trans }}</button>
+                            </form>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="no-results">
+                    <p>No products found matching "{{ query }}"</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>

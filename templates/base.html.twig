@@ -16,6 +16,8 @@
 {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
     {{ encore_entry_script_tags('app') }}
+    <script src="{{ asset('build/app.js') }}" defer></script>
+
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
 {% endblock %}
     </head>
@@ -26,19 +28,17 @@
                     <li><a href="{{ path('app_product_index') }}" class="btn-minecraft">
                         <span class="home-icon">🏠</span> {{ 'home'|trans }}
                     </a></li>
-                    <li><a href="{{ path('app_search') }}" class="btn-minecraft">Search</a></li>
+                    <li><a href="{{ path('app_search') }}" class="btn-minecraft">{{ 'search'|trans }}</a></li>
                     {% if is_granted('ROLE_ADMIN') %}
                         <li><a href="{{ path('app_admin_dashboard') }}" class="btn-minecraft">
                             📊 Dashboard
                         </a></li>
                     {% else %}
                         <li><a href="{{ path('app_cart_index') }}" class="btn-minecraft">
-                            🛒 Cart <span class="cart-count" data-cart-target="count">{{ app.session.get('cart')|length }}</span>
+                            🛒 {{ 'cart'|trans }} <span class="cart-count" data-cart-target="count">{{ app.session.get('cart')|length }}</span>
                         </a></li>
                     {% endif %}
                     {% if is_granted('ROLE_USER') %}
-                        <li><a href="{{ path('app_credit_card_index') }}" class="btn-minecraft">
-                        <span class="card-icon">💵</span> {{ 'card'|trans }}
                         <li><a href="{{ path('app_logout') }}" class="btn-minecraft">
                         <span class="logout-icon">❌</span> {{ 'logout'|trans }}
                         </a></li>

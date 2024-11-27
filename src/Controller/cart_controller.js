@@ -11,7 +11,7 @@ export default class extends Controller {
         const id = event.target.dataset.productId;
         const quantity = event.target.value;
 
-        const response = await fetch(this.updateUrlValue.replace('__id__', id), {
+        const response = await fetch(this.updateUrlValue.replace('ID', id), {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -25,10 +25,12 @@ export default class extends Controller {
     }
 
     async removeItem(event) {
+
         event.preventDefault();
         const id = event.currentTarget.dataset.productId;
+        console.log('Remove button clicked, ID:', id);
 
-        const response = await fetch(this.removeUrlValue.replace('__id__', id), {
+        const response = await fetch(this.removeUrlValue.replace('ID', id), {
             method: 'POST',
             headers: {
                 'X-Requested-With': 'XMLHttpRequest'
@@ -37,10 +39,6 @@ export default class extends Controller {
 
         const data = await response.json();
         this.updateCart(data);
-
-        // Play Minecraft break sound
-        const breakSound = new Audio('/sounds/minecraft_break.mp3');
-        breakSound.play();
 
         // Animate removal
         const item = event.currentTarget.closest('tr');

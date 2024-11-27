@@ -26,8 +26,8 @@ class AdminController extends AbstractController
         UserRepository $userRepository,
         OrderRepository $orderRepository
     ): Response {
-        
-                // Nombre total de produits par catégorie
+
+        // Nombre total de produits par catégorie
         $productsByCategory = $productRepository->countProductsByCategory();
 
         // Les 5 dernières commandes
@@ -125,14 +125,14 @@ class AdminController extends AbstractController
             $this->addFlash('error', 'Cannot delete the product as it is part of an existing order.');
             return $this->redirectToRoute('app_admin_products');
         }
-    
+
         if ($this->isCsrfTokenValid('delete' . $product->getId(), $request->request->get('_token'))) {
             $entityManager->remove($product);
             $entityManager->flush();
-    
+
             $this->addFlash('success', 'Product deleted successfully!');
         }
-    
+
         return $this->redirectToRoute('app_admin_products');
     }
 }
