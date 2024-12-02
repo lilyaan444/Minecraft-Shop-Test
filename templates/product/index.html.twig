@@ -11,14 +11,17 @@
                 <img src="{{ asset('images/minecraft/' ~ product.minecraftImage) }}" alt="{{ product.name }}">
                 <h2>{{ product.name }}</h2>
                 <p class="minecraft-tooltip">
-                    {{ product.price }} diamonds
-                    <span class="tooltiptext">{{ 'in_game_currency'|trans }}</span>
+                    {{ product.price }} diamonds 💎
                 </p>
                 <p>{{ 'stock'|trans }}: {{ product.stock }}</p>
                 <a href="{{ path('app_product_show', {'id': product.id}) }}" class="btn-minecraft">{{ 'view'|trans }}</a>
+                {% if product.status == 'unavailable' %}
+                <h2 class="text-danger">{{ 'unavailable'|trans }}</h2>
+            {% else %}
                 <form action="{{ path('app_cart_add', {'id': product.id}) }}" method="post">
                     <button type="submit" class="btn-minecraft">{{ 'add_to_cart'|trans }}</button>
                 </form>
+            {% endif %}
             </div>
         {% endfor %}
     </div>
