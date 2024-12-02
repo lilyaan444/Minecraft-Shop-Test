@@ -7,7 +7,7 @@
     <h1 class="minecraft-title">Products Management</h1>
     
     <div class="actions">
-        <button onclick="window.history.back();" class="btn-minecraft">← {{ 'back'|trans }}</button>
+        <a href="{{ path('app_admin_dashboard') }}" class="btn-minecraft">← {{ 'back'|trans }}</a>
         <br><br>
         <a href="{{ path('app_admin_product_new') }}" class="btn-minecraft">{{ 'add'|trans }}</a>
     </div>
@@ -35,11 +35,6 @@
                     <td>{{ product.stock }}</td>
                     <td>
                         <a href="{{ path('app_admin_product_edit', {'id': product.id}) }}" class="btn-minecraft">{{ 'edit'|trans }}</a>
-                        
-                        <form action="{{ path('app_admin_product_delete', {'id': product.id}) }}" method="post" style="display:inline;">
-                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ product.id) }}">
-                            <button type="submit" class="btn-minecraft" onclick="return confirm('Are you sure you want to delete this product?');">{{ 'delete'|trans }}</button>
-                        </form>
                     </td>
                 </tr>
             {% endfor %}

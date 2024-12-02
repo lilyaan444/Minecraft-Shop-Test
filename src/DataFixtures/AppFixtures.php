@@ -24,6 +24,18 @@ class AppFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
+
+        
+        // Create Admin User
+        $admin = new User();
+        $admin->setEmail('admin@example.com');
+        $admin->setRoles(['ROLE_ADMIN']);
+        $admin->setPassword($this->passwordHasher->hashPassword($admin, 'admin')); // Password: admin
+        $admin->setFirstName('Admin');
+        $admin->setLastName('User');
+        $manager->persist($admin);
+        $this->addReference('user_admin', $admin);
+
         // Create Users
         $users = [
             ['alex.steve@gmail.com', 'Alex', 'Steve'],
@@ -37,7 +49,7 @@ class AppFixtures extends Fixture
             $user = new User();
             $user->setEmail($email);
             $user->setRoles(['ROLE_USER']);
-            $user->setPassword($this->passwordHasher->hashPassword($user, 'password123')); // Default password
+            $user->setPassword($this->passwordHasher->hashPassword($user, 'password123')); 
             $user->setFirstName($firstName);
             $user->setLastName($lastName);
             $manager->persist($user);
@@ -105,9 +117,9 @@ class AppFixtures extends Fixture
             ['Golden Apple', 'food', 'golden_apple.png', 50, 'A magical apple that gives health regeneration', 200],
             ['Diamond Pickaxe', 'tool', 'diamond_pickaxe.png', 80, 'An efficient pickaxe for mining', 30],
             ['Grass Block', 'block', 'grass_block.png', 5, 'A basic building block', 1000],
-            ['Obsidian Block', 'block', 'obsidian_block.png', 20, 'An extremely strong block used for portals', 300],
+            ['Obsidian Block', 'block', 'obsidian_block.png', 0, 'An extremely strong block used for portals', 300],
             ['Iron Sword', 'weapon', 'iron_sword.png', 50, 'A reliable sword made of iron', 100],
-            ['Bread', 'food', 'bread.png', 2, 'A basic food item', 500],
+            ['Bread', 'food', 'bread.png', 0, 'A basic food item', 500],
             ['Diamond Helmet', 'armor', 'diamond_helmet.png', 70, 'Protective helmet made of diamond', 40],
             ['Healing Potion', 'potion', 'healing_potion.png', 15, 'A potion that restores health', 150],
             ['Wooden Shovel', 'tool', 'wooden_shovel.png', 3, 'A basic shovel made of wood', 200],
