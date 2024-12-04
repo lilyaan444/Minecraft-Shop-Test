@@ -1,0 +1,439 @@
+/* Minecraft-inspired font */
+@font-face {
+    font-family: 'Minecraft';
+    src: url('../fonts/Minecraft.ttf') format('truetype');
+  }
+  
+  body {
+    font-family: 'Minecraft', sans-serif;
+    background-color: #494949;
+    color: #ffffff;
+    text-shadow: 2px 2px #3f3f3f;
+  }
+  
+  .container {
+    background-color: rgba(0, 0, 0, 0.6);
+    border: 4px solid #8b8b8b;
+    border-radius: 0;
+    padding: 20px;
+    margin-top: 20px;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: normal;
+  }
+
+  .container.minecraft-box {
+    background-color: rgba(0, 0, 0, 0.6);
+    border: 4px solid #8b8b8b;
+    padding: 30px;
+    max-width: 400px;
+    margin: 50px auto;
+    border-radius: 5px;
+    box-shadow: 4px 4px #2e2e2e;
+}
+
+.minecraft-form h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    color: #f5f5f5;
+    text-shadow: 3px 3px #3f3f3f;
+}
+  
+  /* Minecraft-style button */
+  .btn-minecraft {
+    background-color: #7e7e7e;
+    border: 2px solid #565656;
+    color: #ffffff;
+    font-family: 'Minecraft', sans-serif;
+    text-transform: uppercase;
+    padding: 10px 15px;
+    text-shadow: 2px 2px #3f3f3f;
+    transition: all 0.3s;
+  }
+  
+  .btn-minecraft:hover {
+    background-color: #565656;
+    border-color: #3f3f3f;
+    transform: translateY(-2px);
+  }
+  
+  /* Product card style */
+  .product-card {
+    background-color: #8b8b8b;
+    border: 4px solid #565656;
+    padding: 10px;
+    margin-bottom: 20px;
+    transition: all 0.3s;
+  }
+  
+  .product-card:hover {
+    transform: scale(1.05);
+  }
+  
+  .product-card img {
+    image-rendering: pixelated;
+    width: 100%;
+    height: auto;
+  }
+  
+  /* Inventory-style table */
+  .table-minecraft {
+    background-color: #c6c6c6;
+    border: 4px solid #8b8b8b;
+  }
+  
+  .table-minecraft th,
+  .table-minecraft td {
+    border: 2px solid #8b8b8b;
+    padding: 10px;
+  }
+  
+  .table-minecraft thead {
+    background-color: #8b8b8b;
+    color: #ffffff;
+  }
+  
+  /* Minecraft-style form inputs */
+  .form-control-minecraft {
+    background-color: #8b8b8b;
+    border: 2px solid #565656;
+    color: #ffffff;
+    font-family: 'Minecraft', sans-serif;
+    padding: 10px;
+    margin-bottom: 15px;
+  }
+  
+  .form-control-minecraft:focus {
+    background-color: #a8a8a8;
+    border-color: #ffffff;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+  }
+
+  /* Existing styles */
+
+/* Improved Navigation */
+header.minecraft-box {
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+nav ul {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+
+nav ul li {
+  margin: 0 10px;
+}
+
+.btn-minecraft {
+  display: inline-block;
+  padding: 6px 12px;
+  font-size: 14px;
+  text-decoration: none;
+  color: #fff;
+  background-color: #5c5c5c;
+  border: 2px solid #000;
+  box-shadow: inset -2px -4px #0006, inset 2px 2px #fff7;
+}
+
+.btn-minecraft:hover {
+  background-color: #7e7e7e;
+}
+.btn-login {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-login .icon-login {
+  margin-right: 5px;
+}
+
+/* Improved Product Grid */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+.product-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+  background-color: #c6c6c6;
+  border: 2px solid #000;
+  box-shadow: inset -2px -4px #0006, inset 2px 2px #fff7;
+}
+
+.product-card img {
+  width: 100%;
+  max-width: 150px;
+  height: auto;
+  object-fit: contain;
+  margin-bottom: 10px;
+}
+
+.product-card h2 {
+  font-size: 16px;
+  margin: 5px 0;
+  text-align: center;
+}
+
+.product-card p {
+  font-size: 14px;
+  margin: 5px 0;
+}
+
+.product-card .btn-minecraft {
+  margin-top: 10px;
+}
+
+/* Category List */
+.category-list {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+  gap: 10px;
+}
+
+.category-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+  padding: 5px;
+  border: 2px solid transparent;
+}
+
+.category-item:hover {
+  transform: scale(1.1);
+  border-color: #000;
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.category-icon {
+  width: 32px;
+  height: 32px;
+  margin-bottom: 5px;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .product-grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  }
+  
+  nav ul {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  nav ul li {
+    margin: 5px 0;
+  }
+  
+  .btn-minecraft {
+    display: block;
+    text-align: center;
+  }
+}
+
+/* Product Show Page */
+.product-details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background-color: rgba(198, 198, 198, 0.8);
+  border: 2px solid #000;
+  box-shadow: inset -2px -4px #0006, inset 2px 2px #fff7;
+}
+
+.product-details img {
+  max-width: 300px;
+  height: auto;
+  margin-bottom: 20px;
+}
+
+.product-info {
+  text-align: center;
+}
+
+.product-actions {
+  margin-top: 20px;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .product-grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  }
+  
+  nav ul {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  nav ul li {
+    margin: 5px 0;
+  }
+  
+  .btn-minecraft {
+    display: block;
+    text-align: center;
+  }
+}
+
+/* Style du dropdown Minecraft */
+.minecraft-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.minecraft-dropbtn {
+  background-color: #5d7c36; /* Vert herbe */
+  color: #f4e242; /* Jaune pixelisé */
+  padding: 10px 20px;
+  font-size: 18px;
+  border: 4px solid #3d4b26; /* Bordure marron foncé */
+  cursor: pointer;
+  text-transform: uppercase;
+  box-shadow: 2px 2px 0px #3d4b26, -2px -2px 0px #8b944e; /* Effet 3D pour rappeler le style bloc Minecraft */
+}
+
+.minecraft-dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #3d4b26; /* Marron foncé */
+  border: 3px solid #8b944e; /* Marron clair pour les bordures */
+  min-width: 200px;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+
+.minecraft-dropdown-content a {
+  color: #f4e242; /* Jaune pixelisé */
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  background-color: #5d7c36; /* Fond vert herbe */
+  font-size: 16px;
+  text-transform: uppercase;
+  border-bottom: 2px solid #3d4b26; /* Séparation pixelisée */
+}
+
+.minecraft-dropdown-content a:hover {
+  background-color: #8b944e; /* Couleur plus claire lors du survol */
+  color: #ffffff; /* Blanc lors du survol */
+  border-bottom: 2px solid #f4e242; /* Mettre en surbrillance avec du jaune pixelisé */
+}
+
+.minecraft-dropdown:hover .minecraft-dropdown-content {
+  display: block;
+}
+
+.minecraft-dropdown:hover .minecraft-dropbtn {
+  background-color: #8b944e; /* Changer la couleur du bouton au survol */
+  box-shadow: 2px 2px 0px #5d7c36, -2px -2px 0px #3d4b26; /* Accentuer l'effet de survol */
+}
+
+
+/* Cart Styles */
+.quantity-input {
+  width: 60px;
+  text-align: center;
+}
+
+.cart-count {
+  color: white;
+  border-radius: 50%;
+  padding: 2px 6px;
+  font-size: 1em;
+  margin-left: 5px;
+}
+
+.checkout-form {
+  text-align: right;
+  margin-top: 20px;
+}
+
+.btn-checkout {
+  font-size: 1.2em;
+  padding: 15px 30px;
+  background-color: #2ecc71;
+  border-color: #27ae60;
+}
+
+.btn-checkout:hover {
+  background-color: #27ae60;
+  border-color: #219a52;
+}
+
+
+.alert {
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+}
+
+.alert-success {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.alert-error {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+.minecraft-search-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.minecraft-input {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  background-color: rgba(0, 0, 0, 0.7);
+  border: 2px solid #555555;
+  color: #ffffff;
+  margin-bottom: 20px;
+}
+
+.minecraft-input:focus {
+  outline: none;
+  border-color: #7e7e7e;
+}
+
+.search-results {
+  margin-top: 20px;
+}
+
+.no-results {
+  text-align: center;
+  padding: 20px;
+  background-color: rgba(0, 0, 0, 0.7);
+  border: 2px solid #555555;
+  color: #ffffff;
+}
+
+.search-page h1 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #ffffff;
+}
